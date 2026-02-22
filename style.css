@@ -2648,45 +2648,49 @@ body {
     display: none !important;
 }
 
-/* ================= PAST TOURNAMENTS FIX ================= */
+/* ================= SLIDER FIX ================= */
 
-/* Fix the champions grid layout */
-.hall-of-fame-section .champions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Ensure cards don't get cut off */
-.champion-card {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-/* Fix poster slider overflow */
-.poster-slider-section {
+.slider-wrapper {
     overflow: hidden;
+    width: 100%;
 }
 
+.slider-track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Remove any width constraints */
+    width: max-content;
+}
+
+.poster-slide {
+    flex: 0 0 auto;
+    width: 380px; /* Slightly smaller to fit 3 on screen */
+    max-width: 90vw; /* Prevent overflow on mobile */
+}
+
+/* Ensure slider container doesn't overflow */
 .slider-container {
     max-width: 100%;
     overflow: hidden;
+    padding: 0 10px;
 }
 
-/* Responsive fixes */
+/* Adjust for different screen sizes */
 @media (max-width: 1200px) {
-    .hall-of-fame-section .champions-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    .poster-slide {
+        width: 340px;
+    }
+}
+
+@media (max-width: 992px) {
+    .poster-slide {
+        width: 300px;
     }
 }
 
 @media (max-width: 768px) {
-    .hall-of-fame-section .champions-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
+    .poster-slide {
+        width: 85vw; /* Show one card at a time on mobile */
     }
 }
