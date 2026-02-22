@@ -34,13 +34,14 @@
         </div>
     </section>
 
-    <!-- POSTER SLIDER SECTION -->
+       <!-- POSTER SLIDER SECTION -->
     <section class="poster-slider-section">
         <h2 class="section-heading">Tournament Gallery</h2>
         <div class="slider-container">
             <button class="slider-btn prev-btn" onclick="moveSlider(-1)">‹</button>
+            
             <div class="slider-wrapper">
-                                <div class="slider-track" id="posterSlider">
+                <div class="slider-track" id="posterSlider">
                     <!-- Poster 1 -->
                     <div class="poster-slide">
                         <div class="poster-card">
@@ -152,8 +153,11 @@
                         </div>
                     </div>
                 </div>
+            </div>  <!-- slider-wrapper closes HERE -->
+            
             <button class="slider-btn next-btn" onclick="moveSlider(1)">›</button>
-        </div>
+        </div>  <!-- slider-container closes HERE -->
+        
         <div class="slider-dots" id="sliderDots"></div>
     </section>
 
@@ -370,8 +374,8 @@
         }
 
         function updateSlider() {
-            const slideWidth = slides[0].offsetWidth + 32; // width + gap
-            slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+    const slideWidth = slides[0].offsetWidth + 30; // width + gap (30px from CSS)
+    slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
             
             // Update dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
@@ -414,4 +418,5 @@
 </body>
 
 </html>
+
 
