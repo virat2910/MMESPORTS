@@ -2184,7 +2184,7 @@ body {
 
 .slider-container {
     position: relative;
-    max-width: 1600px;
+    max-width: 1400px;  /* Reduced from 1600px */
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -2197,6 +2197,7 @@ body {
     flex: 1;
     border-radius: 20px;
     padding: 20px 0;
+    width: 100%;  /* Added */
 }
 
 .slider-track {
@@ -2204,11 +2205,14 @@ body {
     gap: 30px;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     padding: 10px;
+    width: max-content;  /* Added */
 }
 
 .poster-slide {
     flex: 0 0 auto;
-    width: 400px;
+    width: calc((100% - 60px) / 3);  /* Dynamic width: 3 cards with 2 gaps */
+    max-width: 380px;  /* Maximum size */
+    min-width: 300px;  /* Minimum size */
 }
 
 .poster-card {
@@ -2694,3 +2698,4 @@ body {
         width: 85vw; /* Show one card at a time on mobile */
     }
 }
+
