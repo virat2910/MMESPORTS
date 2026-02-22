@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tournaments - Milimeter Esports</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="logo-space"><img src="logo.jpeg" alt="MM" class="logo-img"></div>
+            <span class="brand-name">Milimeter Esports</span>
+        </div>
+
+        <div class="topbar-right">
+            <a href="index.html">Home</a>
+            <a href="scrims.html">Scrims</a>
+            <a href="tournaments.html">Tournaments</a>
+            <a href="past-tournaments.html">Past Tournaments</a>
+            <a href="about.html">About</a>
+            <a href="#">Discord</a>
+        </div>
+    </div>
+
+    <!-- TOURNAMENTS HERO SECTION -->
+    <section class="tournaments-hero">
+        <canvas id="particleCanvas" class="particle-canvas"></canvas>
+        <div class="animated-bg"></div>
+        <div class="tournaments-header">
+            <h1 class="section-title">TOURNAMENTS</h1>
+            <p class="section-subtitle">Compete for Glory, Fame & Prizes</p>
+        </div>
+    </section>
+
+    <!-- TOURNAMENTS PRIZES SECTION -->
+    <section class="prizes-section">
+        <h2>Prize Pools Available</h2>
+        <div class="prizes-grid">
+            <div class="prize-card prize-gold">
+                <div class="prize-icon">🏆</div>
+                <h3>Grand Tournament</h3>
+                <div class="prize-amount">₹5,00,000</div>
+                <p class="prize-desc">Monthly championship with top teams</p>
+                <ul class="prize-details">
+                    <li>32 Teams Invited</li>
+                    <li>4 Maps - 5 Games Each</li>
+                    <li>Total Prize Pool</li>
+                </ul>
+                <a href="https://discord.gg/6aSSJKgqym" target="_blank" class="prize-btn">Register Now</a>
+            </div>
+
+            <div class="prize-card prize-silver">
+                <div class="prize-icon">🥈</div>
+                <h3>Weekly Qualifiers</h3>
+                <div class="prize-amount">₹1,00,000</div>
+                <p class="prize-desc">Weekly tournaments open to all</p>
+                <ul class="prize-details">
+                    <li>16 Teams Qualify</li>
+                    <li>3 Maps - 3 Games Each</li>
+                    <li>Per Week Prize</li>
+                </ul>
+                <a href="https://discord.gg/6aSSJKgqym" target="_blank" class="prize-btn">Register Now</a>
+            </div>
+
+            <div class="prize-card prize-bronze">
+                <div class="prize-icon">🥉</div>
+                <h3>Community Cup</h3>
+                <div class="prize-amount">₹25,000</div>
+                <p class="prize-desc">Daily tournaments for all levels</p>
+                <ul class="prize-details">
+                    <li>8 Teams Participate</li>
+                    <li>2 Maps - 2 Games Each</li>
+                    <li>Per Day Prize</li>
+                </ul>
+                <a href="https://discord.gg/6aSSJKgqym" target="_blank" class="prize-btn">Register Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- UPCOMING TOURNAMENTS SECTION -->
+    <section class="upcoming-section">
+        <h2>Upcoming Tournaments</h2>
+        <div class="tournaments-container">
+            <div class="tournament-card upcoming-active">
+                <div class="tournament-header">
+                    <div class="tournament-status">LIVE REGISTRATIONS</div>
+                    <h3>Season 2 Grand Finals</h3>
+                </div>
+                <div class="tournament-details">
+                    <div class="detail-item">
+                        <span class="detail-label">📅 Date:</span>
+                        <span class="detail-value">25 Feb 2026</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">🕐 Time:</span>
+                        <span class="detail-value">7:00 PM - 11:00 PM IST</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">🎮 Teams:</span>
+                        <span class="detail-value">32 Teams</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">💰 Prize Pool:</span>
+                        <span class="detail-value">₹5,00,000</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">📍 Format:</span>
+                        <span class="detail-value">Battle Royale - 5 Games</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tournament-card">
+                <div class="tournament-header">
+                    <div class="tournament-status">COMING SOON</div>
+                    <h3>Rookie Championship</h3>
+                </div>
+                <div class="tournament-details">
+                    <div class="detail-item">
+                        <span class="detail-label">📅 Date:</span>
+                        <span class="detail-value">3 Mar 2026</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">🕐 Time:</span>
+                        <span class="detail-value">6:00 PM - 9:00 PM IST</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">🎮 Teams:</span>
+                        <span class="detail-value">16 Teams</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">💰 Prize Pool:</span>
+                        <span class="detail-value">₹1,50,000</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">📍 Format:</span>
+                        <span class="detail-value">For T3 & T2 Players</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tournament-card">
+                <div class="tournament-header">
+                    <div class="tournament-status">RECRUITING</div>
+                    <h3>Pro League April</h3>
+                </div>
+                <div class="tournament-details">
+                    <div class="detail-item">
+                        <span class="detail-label">📅 Date:</span>
+                        <span class="detail-value">April 2026 (Dates TBA)</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">🕐 Schedule:</span>
+                        <span class="detail-value">Weekends - 8 Weeks</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">🎮 Teams:</span>
+                        <span class="detail-value">12 Pro Teams</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">💰 Prize Pool:</span>
+                        <span class="detail-value">₹20,00,000</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">📍 Format:</span>
+                        <span class="detail-value">League + Playoffs</span>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <!-- RANKING SECTION -->
+    <section class="ranking-section">
+        <h2>Tournament Rankings</h2>
+        <div class="rankings-container">
+            <div class="ranking-card rank-1">
+                <div class="ranking-position">1</div>
+                <div class="ranking-info">
+                    <h4>Phoenix Gaming</h4>
+                    <p>Points: 3,450</p>
+                </div>
+                <div class="trophy">🏆</div>
+            </div>
+
+            <div class="ranking-card rank-2">
+                <div class="ranking-position">2</div>
+                <div class="ranking-info">
+                    <h4>Elite Squad</h4>
+                    <p>Points: 3,120</p>
+                </div>
+                <div class="trophy">🥈</div>
+            </div>
+
+            <div class="ranking-card rank-3">
+                <div class="ranking-position">3</div>
+                <div class="ranking-info">
+                    <h4>Apex Legends</h4>
+                    <p>Points: 2,890</p>
+                </div>
+                <div class="trophy">🥉</div>
+            </div>
+
+            <div class="ranking-card rank-4">
+                <div class="ranking-position">4</div>
+                <div class="ranking-info">
+                    <h4>Shadow Team</h4>
+                    <p>Points: 2,650</p>
+                </div>
+            </div>
+
+            <div class="ranking-card rank-5">
+                <div class="ranking-position">5</div>
+                <div class="ranking-info">
+                    <h4>Victory Vibes</h4>
+                    <p>Points: 2,420</p>
+                </div>
+            </div>
+
+            <div class="ranking-card rank-6">
+                <div class="ranking-position">6</div>
+                <div class="ranking-info">
+                    <h4>Crimson Force</h4>
+                    <p>Points: 2,150</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RULES SECTION -->
+    <section class="rules-section">
+        <h2>Tournament Rules & Format</h2>
+        <div class="rules-grid">
+            <div class="rule-card">
+                <div class="rule-number">01</div>
+                <h3>Team Requirements</h3>
+                <p>Each team must have 4 players minimum and 5 maximum. All players must be verified in Discord with valid Game IDs.</p>
+            </div>
+
+            <div class="rule-card">
+                <div class="rule-number">02</div>
+                <h3>Match Format</h3>
+                <p>Battle Royale format with multiple games. Ranking based on final placement and eliminations. Top teams qualify for finals.</p>
+            </div>
+
+            <div class="rule-card">
+                <div class="rule-number">03</div>
+                <h3>Equipment Rules</h3>
+                <p>Fair play policy enforced. No cheating, hacking, or prohibited equipment allowed. Penalties include disqualification.</p>
+            </div>
+
+            <div class="rule-card">
+                <div class="rule-number">04</div>
+                <h3>Prize Distribution</h3>
+                <p>Prizes distributed within 48 hours post tournament. Top 3 teams rewarded. Proof of team captain required for payout.</p>
+            </div>
+        </div>
+    </section>
+
+
+         <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="scrims.html">Scrims</a></li>
+                    <li><a href="tournaments.html">Tournaments</a></li>
+                    <li><a href="past-tournaments.html">Past Tournaments</a></li>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord Server</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Rules & Regulations</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
+            <p>Built with precision. Powered by passion. 🎮🔥</p>
+        </div>
+    </footer>
+
+    <script>
+        // Particle Animation
+        const canvas = document.getElementById('particleCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            let particles = [];
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1.5 - 0.75;
+                    this.speedY = Math.random() * 1.5 - 0.75;
+                    this.color = Math.random() > 0.5 ? 'rgba(255, 46, 46, ' : 'rgba(46, 96, 255, ';
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.life = Math.random() * 100 + 50;
+                    this.maxLife = this.life;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life--;
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+                
+                draw() {
+                    const fade = this.life / this.maxLife;
+                    ctx.fillStyle = this.color + (this.opacity * fade) + ')';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = this.size * 2;
+                    ctx.shadowColor = this.color + (this.opacity * fade) + ')';
+                }
+            }
+            
+            function createParticles() {
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles = particles.filter(p => p.life > 0);
+                
+                for (let particle of particles) {
+                    particle.update();
+                    particle.draw();
+                }
+                
+                if (particles.length < 100) {
+                    createParticles();
+                }
+                
+                requestAnimationFrame(animateParticles);
+            }
+            
+            createParticles();
+            animateParticles();
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scrims - Milimeter Esports</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="logo-space"><img src="logo.jpeg" alt="MM" class="logo-img"></div>
+            <span class="brand-name">Milimeter Esports</span>
+        </div>
+
+        <div class="topbar-right">
+            <a href="index.html">Home</a>
+            <a href="scrims.html">Scrims</a>
+            <a href="tournaments.html">Tournaments</a>
+            <a href="past-tournaments.html">Past Tournaments</a>
+            <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+            <a href="about.html">About</a>
+        </div>
+    </div>
+
+    <!-- SCRIMS HERO SECTION -->
+    <section class="scrims-hero">
+        <div class="scrims-header">
+            <h1 class="section-title">COMPETITIVE SCRIMS</h1>
+            <p class="section-subtitle">Choose your level and compete with the best</p>
+        </div>
+    </section>
+
+    <!-- SCRIMS BOXES CONTAINER -->
+    <section class="scrims-section">
+        <div class="scrims-grid">
+            <!-- T3 SCRIMS -->
+            <div class="scrim-card">
+                <div class="scrim-header t3-header">
+                    <h2>T3 SCRIMS</h2>
+                    <span class="scrim-badge">Beginner</span>
+                </div>
+                <div class="scrim-content">
+                    <div class="scrim-info">
+                        <p class="scrim-description">Entry-level competitive scrimmages for beginners and new players.</p>
+                        <ul class="scrim-details">
+                            <li><strong>Max Players:</strong> 32</li>
+                            <li><strong>Duration:</strong> 20 minutes</li>
+                            <li><strong>Maps:</strong> Rotation</li>
+                            <li><strong>Frequency:</strong> Daily (6 PM - 11 PM)</li>
+                        </ul>
+                        <div class="scrim-highlights">
+                            <span class="highlight">Skill Development</span>
+                            <span class="highlight">No Entry Fee</span>
+                            <span class="highlight">Beginner Friendly</span>
+                        </div>
+                    </div>
+                    <a href="https://discord.gg/6aSSJKgqym" target="_blank" class="register-btn t3-btn">Register Now</a>
+                </div>
+            </div>
+
+            <!-- T2 & T2Q SCRIMS -->
+            <div class="scrim-card">
+                <div class="scrim-header t2-header">
+                    <h2>T2 & T2Q SCRIMS</h2>
+                    <span class="scrim-badge">Intermediate</span>
+                </div>
+                <div class="scrim-content">
+                    <div class="scrim-info">
+                        <p class="scrim-description">Intermediate level scrimmages for skilled players and squads.</p>
+                        <ul class="scrim-details">
+                            <li><strong>Max Players:</strong> 32</li>
+                            <li><strong>Duration:</strong> 25 minutes</li>
+                            <li><strong>Maps:</strong> Erangel / Livik</li>
+                            <li><strong>Frequency:</strong> 2x Daily (4 PM & 9 PM)</li>
+                        </ul>
+                        <div class="scrim-highlights">
+                            <span class="highlight">Competitive Play</span>
+                            <span class="highlight">Point System</span>
+                            <span class="highlight">Squad Required</span>
+                        </div>
+                    </div>
+                    <a href="https://discord.gg/6aSSJKgqym" target="_blank" class="register-btn t2-btn">Register Now</a>
+                </div>
+            </div>
+
+            <!-- SPECIAL SCRIMS -->
+            <div class="scrim-card">
+                <div class="scrim-header special-header">
+                    <h2>SPECIAL SCRIMS</h2>
+                    <span class="scrim-badge">Elite Only</span>
+                </div>
+                <div class="scrim-content">
+                    <div class="scrim-info">
+                        <p class="scrim-description">Exclusive scrimmages for invited pro teams and elite players only.</p>
+                        <ul class="scrim-details">
+                            <li><strong>Max Teams:</strong> 16</li>
+                            <li><strong>Duration:</strong> 30 minutes</li>
+                            <li><strong>Maps:</strong> Livik Pro</li>
+                            <li><strong>Frequency:</strong> On Demand (by Invitation)</li>
+                        </ul>
+                        <div class="scrim-highlights">
+                            <span class="highlight">Pro Level</span>
+                            <span class="highlight">Premium Pool</span>
+                            <span class="highlight">Invited Only</span>
+                        </div>
+                    </div>
+                    <a href="https://discord.gg/6aSSJKgqym" target="_blank" class="register-btn special-btn">Register Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO REGISTER SECTION -->
+    <section class="how-to-section">
+        <h2>How to Register?</h2>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Join Discord</h3>
+                <p>Click any Register button and join our Discord server</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Verify Account</h3>
+                <p>Verify your Discord and BGMI ID in the verification channel</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Choose Room</h3>
+                <p>Select your scrim level and wait for room assignment</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Play & Compete</h3>
+                <p>Join the scrim room and compete for points and ranking</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Particle Animation (same as main page)
+        const canvas = document.getElementById('particleCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            let particles = [];
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1.5 - 0.75;
+                    this.speedY = Math.random() * 1.5 - 0.75;
+                    this.color = Math.random() > 0.5 ? 'rgba(255, 46, 46, ' : 'rgba(46, 96, 255, ';
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.life = Math.random() * 100 + 50;
+                    this.maxLife = this.life;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life--;
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+                
+                draw() {
+                    const fade = this.life / this.maxLife;
+                    ctx.fillStyle = this.color + (this.opacity * fade) + ')';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = this.size * 2;
+                    ctx.shadowColor = this.color + (this.opacity * fade) + ')';
+                }
+            }
+            
+            function createParticles() {
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles = particles.filter(p => p.life > 0);
+                
+                for (let particle of particles) {
+                    particle.update();
+                    particle.draw();
+                }
+                
+                if (particles.length < 100) {
+                    createParticles();
+                }
+                
+                requestAnimationFrame(animateParticles);
+            }
+            
+            createParticles();
+            animateParticles();
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Smooth scroll for section links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+           <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+             <div class="footer-section footer-logo">
+            <div class="logo-space">
+                <img src="logo.jpeg" alt="MM" class="logo-img">
+            </div>
+            <h4>Milimeter Esports</h4>
+        </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="main.html">Home</a></li>
+                    <li><a href="scrims.html">Scrims</a></li>
+                    <li><a href="tournaments.html">Tournaments</a></li>
+                    <li><a href="past-tournaments.html">Past Tournaments</a></li>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord Server</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Rules & Regulations</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
+            <p>Built with precision. Powered by passion. 🎮🔥</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milimeter Esports</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="logo-space"><img src="logo.jpeg" alt="MM" class="logo-img"></div>
+            <span class="brand-name">Milimeter Esports</span>
+        </div>
+
+        <div class="topbar-right">
+            <a href="index.html">Home</a>
+            <a href="scrims.html">Scrims</a>
+            <a href="tournaments.html">Tournaments</a>
+            <a href="past-tournaments.html">Past Tournaments</a>
+            <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+            <a href="about.html">About</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <canvas id="particleCanvas" class="particle-canvas"></canvas>
+        <div class="animated-bg"></div>
+        
+        <div class="hero-wrapper">
+            <!-- Text Content -->
+            <div class="hero-content">
+                <h1 class="zoom-text">MILIMETER<br>ESPORTS</h1>
+                <div class="badge-container">
+                    <span class="badge">BATTLEGROUNDS MOBILE INDIA</span>
+                </div>
+                <p class="subtitle">
+                    <span class="stat-highlight">8K+</span> Competitive Players | 
+                    <span class="stat-highlight">Daily</span> Scrims | 
+                    <span class="stat-highlight">Official</span> Tournaments
+                </p>
+                <a href="https://discord.gg/6aSSJKgqym" target="_blank" class="cta-btn">
+                    Join Our Discord
+                </a>
+            </div>
+
+    </section>
+
+    <!-- SERVER INFO -->
+    <section class="server-section">
+        <h2>Why Join Our Server?</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>8K+ Members</h3>
+                <p>Fast growing competitive BGMI esports community.</p>
+            </div>
+
+            <div class="card">
+                <h3>Daily Scrims</h3>
+                <p>Organized scrims with proper room management.</p>
+            </div>
+
+            <div class="card">
+                <h3>Prize Tournaments</h3>
+                <p>Weekly tournaments with structured point system.</p>
+            </div>
+
+            <div class="card">
+                <h3>Active Community</h3>
+                <p>24/7 active players, recruitment & esports networking.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+             <div class="footer-section footer-logo">
+            <div class="logo-space">
+                <img src="logo.jpeg" alt="MM" class="logo-img">
+            </div>
+            <h4>Milimeter Esports</h4>
+        </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="scrims.html">Scrims</a></li>
+                    <li><a href="tournaments.html">Tournaments</a></li>
+                    <li><a href="past-tournaments.html">Past Tournaments</a></li>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord Server</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Rules & Regulations</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
+            <p>Built with precision. Powered by passion. 🎮🔥</p>
+        </div>
+    </footer>
+
+    <script>
+        // Particle Animation
+        const canvas = document.getElementById('particleCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            let particles = [];
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1.5 - 0.75;
+                    this.speedY = Math.random() * 1.5 - 0.75;
+                    this.color = Math.random() > 0.5 ? 'rgba(0, 212, 255, ' : 'rgba(139, 92, 246, ';
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.life = Math.random() * 100 + 50;
+                    this.maxLife = this.life;
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life--;
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+                
+                draw() {
+                    const fade = this.life / this.maxLife;
+                    ctx.fillStyle = this.color + (this.opacity * fade) + ')';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            
+            function createParticles() {
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                particles = particles.filter(p => p.life > 0);
+                
+                for (let particle of particles) {
+                    particle.update();
+                    particle.draw();
+                }
+                
+                if (particles.length < 100) {
+                    createParticles();
+                }
+                
+                requestAnimationFrame(animateParticles);
+            }
+            
+            createParticles();
+            animateParticles();
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Character parallax
+        document.addEventListener('mousemove', (e) => {
+            const char = document.querySelector('.char-img');
+            if (char) {
+                const x = (window.innerWidth / 2 - e.pageX) / 40;
+                const y = (window.innerHeight / 2 - e.pageY) / 40;
+                char.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+    </script>
+
+</body>
+</html>
