@@ -1,1 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+  <url>
+    <loc>https://mmesports.in/</loc>
+    <lastmod>2026-02-22</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://mmesports.in/about.html</loc>
+    <lastmod>2026-02-22</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://mmesports.in/scrims.html</loc>
+    <lastmod>2026-02-22</lastmod>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://mmesports.in/tournaments.html</loc>
+    <lastmod>2026-02-22</lastmod>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://mmesports.in/past-tournaments.html</loc>
+    <lastmod>2026-02-22</lastmod>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://mmesports.in/support.html</loc>
+    <lastmod>2026-02-22</lastmod>
+    <priority>0.70</priority>
+  </url>
+
+</urlset>
