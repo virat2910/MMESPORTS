@@ -20,8 +20,34 @@ async function loginWithDiscord() {
     }
 }
 
+// Function to show Success Confirmation UI
+function showAuthSuccess(message) {
+    const modalContent = document.querySelector('.auth-modal-content');
+    if (modalContent) {
+        const originalContent = modalContent.innerHTML;
+        modalContent.innerHTML = `
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <div class="success-message">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Success!</h2>
+                <p>${message}</p>
+                <button class="auth-submit-btn" onclick="closeAuthModal()">Great, Thanks!</button>
+            </div>
+        `;
+    }
+}
+
 // Function to handle Email/Password Sign Up
 async function signUpWithEmail(name, ign, bgmi_id, discord, phone, email, password) {
+    const submitBtn = document.querySelector('.auth-submit-btn');
+    const originalBtnText = submitBtn.textContent;
+
+    // Show loading state
+    submitBtn.textContent = 'Creating Account...';
+    submitBtn.disabled = true;
+
     const { data, error } = await _supabase.auth.signUp({
         email: email,
         password: password,
@@ -38,15 +64,22 @@ async function signUpWithEmail(name, ign, bgmi_id, discord, phone, email, passwo
 
     if (error) {
         console.error("Error signing up:", error.message);
-        alert(error.message);
+        alert("Sign Up Error: " + error.message);
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
     } else {
-        alert("Sign up successful! Please check your email to verify your account if required, or log in.");
-        closeAuthModal();
+        showAuthSuccess("Your account has been created! Please check your email inbox to verify your account before logging in.");
     }
 }
 
 // Function to handle Email/Password Login
 async function loginWithEmail(email, password) {
+    const submitBtn = document.querySelector('.auth-submit-btn');
+    const originalBtnText = submitBtn.textContent;
+
+    submitBtn.textContent = 'Signing In...';
+    submitBtn.disabled = true;
+
     const { data, error } = await _supabase.auth.signInWithPassword({
         email: email,
         password: password
@@ -54,7 +87,9 @@ async function loginWithEmail(email, password) {
 
     if (error) {
         console.error("Error logging in:", error.message);
-        alert(error.message);
+        alert("Login Error: " + error.message);
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
     } else {
         // Successful login
         closeAuthModal();
@@ -202,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 signUpWithEmail(name, ign, bgmi_id, discord, phone, email, password);
             } else {
                 loginWithEmail(email, password);
-                
             }
         });
     });
