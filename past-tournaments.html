@@ -12,7 +12,523 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+<body><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Tournaments - Milimeter Esports | BGMI Tournaments History | MM Esports | BGMI Community India</title>
+
+    <meta name="description"
+        content="MM Esports is an Best Server And It gives the proper prizepool and handles tournament very easily.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
 <body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="logo-space"><img src="logo.jpeg" alt="MM" class="logo-img"></div>
+            <span class="brand-name">Milimeter Esports</span>
+        </div>
+
+        <div class="topbar-right">
+            <a href="index.html">Home</a>
+            <a href="scrims.html">Scrims</a>
+            <a href="tournaments.html">Tournaments</a>
+            <a href="past-tournaments.html">Past Tournaments</a>
+            <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+            <a href="about.html">About</a>
+            <button class="nav-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="scrims.html">Scrims</a>
+        <a href="tournaments.html">Tournaments</a>
+        <a href="past-tournaments.html">Past Tournaments</a>
+        <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+        <a href="about.html">About</a>
+        <button class="mobile-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
+    </div>
+
+    <!-- PAST TOURNAMENTS HERO -->
+    <section class="tournaments-hero">
+        <canvas id="particleCanvas" class="particle-canvas"></canvas>
+        <div class="animated-bg"></div>
+        <div class="tournaments-header">
+            <h1 class="section-title">PAST TOURNAMENTS</h1>
+            <p class="section-subtitle">Relive the Glory of Previous Champions</p>
+        </div>
+    </section>
+
+    <!-- POSTER SLIDER SECTION -->
+    <section class="poster-slider-section">
+        <h2 class="section-heading">Tournament Gallery</h2>
+        <div class="slider-container">
+            <button class="slider-btn prev-btn" onclick="moveSlider(-1)">‹</button>
+
+            <div class="slider-wrapper">
+                <div class="slider-track" id="posterSlider">
+                    <!-- Poster 1 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster1.jpg" alt="Clash Of Arena" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Clash Of Arena</h3>
+                                <p>Sept 2025 • 256 Teams • ₹10,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 2 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster2.jpg" alt="Winter Championship 2025" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Winter Championship 2025</h3>
+                                <p>Dec 2025 • 960 Teams • ₹30,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 3 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster3.jpg" alt="Victory Vault" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Victory Vault</h3>
+                                <p>Nov 2025 • 300 Teams • ₹51,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 4 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster4.jpg" alt="Pro Velocity" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Pro Velocity</h3>
+                                <p>Aug 2025 • 216 Teams • ₹50,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 5 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster5.jpg" alt="Weekly Showdown" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Weekly Showdown</h3>
+                                <p>Jul 2025 • 60 Teams • ₹1,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 6 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster6.png" alt="Insta Series Season 1" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Insta Series Season 1</h3>
+                                <p>Dec 2025 • 96 Teams • ₹400</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 7 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster7.jpg" alt="Summer Slam" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Insta Series Season 2</h3>
+                                <p>Dec 2025 • 96 Teams • ₹450</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 8 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster8.jpg" alt="Spring Championship" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Insta Series Season 3</h3>
+                                <p>Jan 2026 • 96 Teams • ₹1,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 9 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster9.png" alt="Rookie Rumble" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Ultimate Challenge Season 1</h3>
+                                <p>Jan 2026 • 80 Teams • ₹5,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 10 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster10.png" alt="New Year Cup" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Ultimate Challenge Season 2</h3>
+                                <p>Jan 2026 • 80 Teams • ₹5,000</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Poster 11 -->
+                    <div class="poster-slide">
+                        <div class="poster-card">
+                            <img src="poster11.png" alt="Launch Tournament" class="poster-image">
+                            <div class="poster-overlay">
+                                <h3>Ultimate Challenge Season 3</h3>
+                                <p>Feb 2026 • 80 Teams • ₹5,000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- slider-wrapper closes HERE -->
+
+            <button class="slider-btn next-btn" onclick="moveSlider(1)">›</button>
+        </div> <!-- slider-container closes HERE -->
+
+        <div class="slider-dots" id="sliderDots"></div>
+    </section>
+
+    <!-- TOP PERFORMERS -->
+    <section class="top-performers-section">
+        <h2 class="section-heading">All-Time Top Performers</h2>
+        <div class="performers-grid">
+            <div class="performer-card rank-1">
+                <div class="performer-rank">#1</div>
+                <div class="performer-info">
+                    <h4>Phoenix Gaming</h4>
+                    <p>3 Championships</p>
+                    <p class="performer-earnings">₹12,50,000 Earned</p>
+                </div>
+                <div class="performer-trophy">🏆</div>
+            </div>
+
+            <div class="performer-card rank-2">
+                <div class="performer-rank">#2</div>
+                <div class="performer-info">
+                    <h4>Shadow Legends</h4>
+                    <p>2 Championships</p>
+                    <p class="performer-earnings">₹8,00,000 Earned</p>
+                </div>
+                <div class="performer-trophy">🥈</div>
+            </div>
+
+            <div class="performer-card rank-3">
+                <div class="performer-rank">#3</div>
+                <div class="performer-info">
+                    <h4>Elite Squad</h4>
+                    <p>1 Championship</p>
+                    <p class="performer-earnings">₹5,50,000 Earned</p>
+                </div>
+                <div class="performer-trophy">🥉</div>
+            </div>
+
+            <div class="performer-card">
+                <div class="performer-rank">#4</div>
+                <div class="performer-info">
+                    <h4>Apex Predators</h4>
+                    <p>1 Championship</p>
+                    <p class="performer-earnings">₹4,00,000 Earned</p>
+                </div>
+            </div>
+
+            <div class="performer-card">
+                <div class="performer-rank">#5</div>
+                <div class="performer-info">
+                    <h4>Crimson Force</h4>
+                    <p>1 Championship</p>
+                    <p class="performer-earnings">₹3,50,000 Earned</p>
+                </div>
+            </div>
+
+            <div class="performer-card">
+                <div class="performer-rank">#6</div>
+                <div class="performer-info">
+                    <h4>Victory Vibes</h4>
+                    <p>1 Championship</p>
+                    <p class="performer-earnings">₹2,50,000 Earned</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="tournament-cta">
+        <h2>Want to Be Next Champion?</h2>
+        <p>Join upcoming tournaments and write your name in history</p>
+        <a href="tournaments.html" class="cta-btn-large">View Upcoming Tournaments</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section footer-logo">
+                <div class="logo-space">
+                    <img src="logo.jpeg" alt="MM" class="logo-img">
+                </div>
+                <h4>Milimeter Esports</h4>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="scrims.html">Scrims</a></li>
+                    <li><a href="tournaments.html">Tournaments</a></li>
+                    <li><a href="past-tournaments.html">Past Tournaments</a></li>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank"><i class="fab fa-discord"></i> Discord
+                            Server</a></li>
+                    <li><a href="https://youtube.com/@mm._esportss" target="_blank"><i class="fab fa-youtube"></i>
+                            YouTube</a></li>
+                    <li><a href="https://www.instagram.com/mm._esports" target="_blank"><i class="fab fa-instagram"></i>
+                            Instagram</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="support.html#rules">Rules & Regulations</a></li>
+                    <li><a href="support.html#terms">Terms of Service</a></li>
+                    <li><a href="support.html#privacy">Privacy Policy</a></li>
+                    <li><a href="support.html#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
+                <p>Built with precision. Powered by passion. 🎮🔥</p>
+            </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('.mobile-menu-btn');
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+                document.querySelector('.mobile-menu-btn').classList.remove('active');
+            });
+        });
+
+        // Particle Animation
+        const canvas = document.getElementById('particleCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1.5 - 0.75;
+                    this.speedY = Math.random() * 1.5 - 0.75;
+                    this.color = Math.random() > 0.5 ? 'rgba(0, 212, 255, ' : 'rgba(139, 92, 246, ';
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.life = Math.random() * 100 + 50;
+                    this.maxLife = this.life;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life--;
+
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+
+                draw() {
+                    const fade = this.life / this.maxLife;
+                    ctx.fillStyle = this.color + (this.opacity * fade) + ')';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = this.size * 2;
+                    ctx.shadowColor = this.color + (this.opacity * fade) + ')';
+                }
+            }
+
+            function createParticles() {
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles = particles.filter(p => p.life > 0);
+
+                for (let particle of particles) {
+                    particle.update();
+                    particle.draw();
+                }
+
+                if (particles.length < 100) {
+                    createParticles();
+                }
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            createParticles();
+            animateParticles();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Poster Slider
+        let currentSlide = 0;
+        const slider = document.getElementById('posterSlider');
+        const slides = document.querySelectorAll('.poster-slide');
+        const totalSlides = slides.length;
+        const dotsContainer = document.getElementById('sliderDots');
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('span');
+            dot.className = 'dot';
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = () => goToSlide(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        function updateSlider() {
+            const slideWidth = slides[0].offsetWidth + 30; // width + gap (30px from CSS)
+            slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
+            // Update dots
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function moveSlider(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto slide
+        setInterval(() => {
+            moveSlider(1);
+        }, 5000);
+
+        // Touch support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        slider.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        slider.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) moveSlider(1);
+            if (touchEndX - touchStartX > 50) moveSlider(-1);
+        });
+
+
+    </script>
+
+    <!-- AUTH MODAL -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <div class="logo-space"><img src="logo.jpeg" alt="MM" class="logo-img"></div>
+            <h2>Welcome Back</h2>
+            <p>Sign in to MM Esports</p>
+
+            <button class="discord-login-btn">
+                <i class="fab fa-discord"></i> Login with Discord
+            </button>
+
+            <div class="auth-divider">
+                <span>OR</span>
+            </div>
+
+            <form class="auth-form" onsubmit="event.preventDefault();">
+                <div class="signup-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="ign">In-Game Name (IGN)</label>
+                        <input type="text" id="ign" placeholder="Enter your BGMI IGN">
+                    </div>
+                    <div class="form-group">
+                        <label for="bgmi_id">BGMI Character ID</label>
+                        <input type="text" id="bgmi_id" placeholder="Enter your BGMI ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="discord">Discord Username</label>
+                        <input type="text" id="discord" placeholder="E.g., username#1234">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone / WhatsApp Number</label>
+                        <input type="tel" id="phone" placeholder="Enter your phone number">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="auth-submit-btn">Login</button>
+            </form>
+
+            <p class="auth-footer">Don't have an account? <a href="#" id="toggleAuthMode">Sign up</a></p>
+        </div>
+    </div>
+</body>
+
+</html>
 
     <!-- TOP BAR -->
     <div class="topbar">
@@ -531,3 +1047,4 @@
 </body>
 
 </html>
+
