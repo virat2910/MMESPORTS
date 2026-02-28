@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Support - Milimeter Esports</title>
     <title>About MM Esports | BGMI Community India</title>
 
-<meta name="description" content="MM Esports has the best management in tournaments and scrims takes decision very fast and proper.">
+    <meta name="description"
+        content="MM Esports has the best management in tournaments and scrims takes decision very fast and proper.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- TOP BAR -->
@@ -23,7 +27,24 @@
             <a href="past-tournaments.html">Past Tournaments</a>
             <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
             <a href="about.html">About</a>
+            <button class="nav-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
         </div>
+        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="scrims.html">Scrims</a>
+        <a href="tournaments.html">Tournaments</a>
+        <a href="past-tournaments.html">Past Tournaments</a>
+        <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+        <a href="about.html">About</a>
+        <button class="mobile-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
     </div>
 
     <!-- SUPPORT HERO -->
@@ -65,32 +86,38 @@
             <div class="rule-card">
                 <div class="rule-number">01</div>
                 <h3>Team Requirements</h3>
-                <p>Each team must have 4 players minimum and 5 maximum. All players must be verified in Discord with valid Game IDs.</p>
+                <p>Each team must have 4 players minimum and 5 maximum. All players must be verified in Discord with
+                    valid Game IDs.</p>
             </div>
             <div class="rule-card">
                 <div class="rule-number">02</div>
                 <h3>Match Format</h3>
-                <p>Battle Royale format with multiple games. Ranking based on final placement and eliminations. Top teams qualify for finals.</p>
+                <p>Battle Royale format with multiple games. Ranking based on final placement and eliminations. Top
+                    teams qualify for finals.</p>
             </div>
             <div class="rule-card">
                 <div class="rule-number">03</div>
                 <h3>Fair Play Policy</h3>
-                <p>No cheating, hacking, or use of prohibited equipment. Violations result in immediate disqualification and ban.</p>
+                <p>No cheating, hacking, or use of prohibited equipment. Violations result in immediate disqualification
+                    and ban.</p>
             </div>
             <div class="rule-card">
                 <div class="rule-number">04</div>
                 <h3>Prize Distribution</h3>
-                <p>Prizes distributed within 48 hours post tournament. Top 3 teams rewarded. Team captain verification required.</p>
+                <p>Prizes distributed within 48 hours post tournament. Top 3 teams rewarded. Team captain verification
+                    required.</p>
             </div>
             <div class="rule-card">
                 <div class="rule-number">05</div>
                 <h3>Registration Rules</h3>
-                <p>Registration closes 2 hours before tournament. No late entries. Entry fees non-refundable after deadline.</p>
+                <p>Registration closes 2 hours before tournament. No late entries. Entry fees non-refundable after
+                    deadline.</p>
             </div>
             <div class="rule-card">
                 <div class="rule-number">06</div>
                 <h3>Dispute Resolution</h3>
-                <p>All disputes must be reported within 30 minutes of match end. Admin decision is final and binding.</p>
+                <p>All disputes must be reported within 30 minutes of match end. Admin decision is final and binding.
+                </p>
             </div>
         </div>
     </section>
@@ -101,16 +128,20 @@
             <div class="mission-content">
                 <h2>Privacy Policy</h2>
                 <p class="mission-text">
-                    At <strong>Milimeter Esports</strong>, we take your privacy seriously. This policy explains how we collect, use, and protect your personal information.
+                    At <strong>Milimeter Esports</strong>, we take your privacy seriously. This policy explains how we
+                    collect, use, and protect your personal information.
                 </p>
                 <p class="mission-text">
-                    <strong>Information We Collect:</strong> Game IDs, Discord usernames, email addresses, and tournament participation data.
+                    <strong>Information We Collect:</strong> Game IDs, Discord usernames, email addresses, and
+                    tournament participation data.
                 </p>
                 <p class="mission-text">
-                    <strong>How We Use It:</strong> To organize tournaments, distribute prizes, and communicate important updates.
+                    <strong>How We Use It:</strong> To organize tournaments, distribute prizes, and communicate
+                    important updates.
                 </p>
                 <p class="mission-text">
-                    <strong>Data Protection:</strong> Your information is stored securely and never shared with third parties without consent.
+                    <strong>Data Protection:</strong> Your information is stored securely and never shared with third
+                    parties without consent.
                 </p>
             </div>
             <div class="stats-grid">
@@ -141,7 +172,8 @@
             <div class="value-card">
                 <div class="value-icon">✅</div>
                 <h3>Acceptance of Terms</h3>
-                <p>By participating in our tournaments, you agree to follow all rules and guidelines set by Milimeter Esports.</p>
+                <p>By participating in our tournaments, you agree to follow all rules and guidelines set by Milimeter
+                    Esports.</p>
             </div>
             <div class="value-card">
                 <div class="value-icon">🎮</div>
@@ -239,6 +271,22 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('.mobile-menu-btn');
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+                document.querySelector('.mobile-menu-btn').classList.remove('active');
+            });
+        });
+
         // Particle Animation (same as other pages)
         const canvas = document.getElementById('particleCanvas');
         if (canvas) {
@@ -246,7 +294,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             let particles = [];
-            
+
             class Particle {
                 constructor() {
                     this.x = Math.random() * canvas.width;
@@ -276,7 +324,7 @@
                     ctx.fill();
                 }
             }
-            
+
             function createParticles() {
                 for (let i = 0; i < 50; i++) particles.push(new Particle());
             }
@@ -307,7 +355,63 @@
                 });
             });
         });
+
+        // Auth Modal Logic
+        const authModal = document.getElementById('authModal');
+
+        function openAuthModal() {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeAuthModal() {
+            authModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target == authModal) {
+                closeAuthModal();
+            }
+        }
     </script>
 
+    <!-- AUTH MODAL -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <div class="logo-space"><img src="logo.jpeg" alt="MM" class="logo-img"></div>
+            <h2>Welcome Back</h2>
+            <p>Sign in to MM Esports</p>
+
+            <button class="discord-login-btn">
+                <i class="fab fa-discord"></i> Login with Discord
+            </button>
+
+            <div class="auth-divider">
+                <span>OR</span>
+            </div>
+
+            <form class="auth-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="auth-submit-btn">Login</button>
+            </form>
+
+            <p class="auth-footer">Don't have an account? <a href="#" id="toggleAuthMode">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-auth.js"></script>
 </body>
+
 </html>
