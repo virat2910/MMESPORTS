@@ -1407,15 +1407,12 @@ body {
 }
 
 .auth-form {
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.auth-form.active-form {
-    display: flex;
-    animation: slideUp 0.4s ease;
-}
+/* Form is visible by default now */
 
 .form-options {
     display: flex;
