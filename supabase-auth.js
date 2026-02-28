@@ -1,5 +1,8 @@
-// supabase-auth.js
 // Initialize Supabase Client
+if (typeof supabase === 'undefined') {
+    console.error("Supabase library not loaded! Check your script tags.");
+}
+
 const _supabase = supabase.createClient(
     'https://olmumjarhohohrjaltwc.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sbXVtamFyaG9ob2hyamFsdHdjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyNjIzNjQsImV4cCI6MjA4NzgzODM2NH0.5eNnXwHYpF8ozPmTCw4eQo4dR06zZ7K-RicsxPTZ88w'
@@ -63,8 +66,8 @@ async function signUpWithEmail(name, ign, bgmi_id, discord, phone, email, passwo
     });
 
     if (error) {
-        console.error("Error signing up:", error.message);
-        alert("Sign Up Error: " + error.message);
+        console.error("Full Sign Up Error Object:", error);
+        alert("Sign Up Error: " + (error.message || "Fetch failed. Please check if you have an ad-blocker enabled or check your internet connection."));
         submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
     } else {
@@ -86,8 +89,8 @@ async function loginWithEmail(email, password) {
     });
 
     if (error) {
-        console.error("Error logging in:", error.message);
-        alert("Login Error: " + error.message);
+        console.error("Full Login Error Object:", error);
+        alert("Login Error: " + (error.message || "Fetch failed. Please check your connection."));
         submitBtn.textContent = originalBtnText;
         submitBtn.disabled = false;
     } else {
