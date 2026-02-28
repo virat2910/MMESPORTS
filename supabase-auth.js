@@ -202,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 signUpWithEmail(name, ign, bgmi_id, discord, phone, email, password);
             } else {
                 loginWithEmail(email, password);
+                
             }
         });
     });
