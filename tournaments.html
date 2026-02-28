@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Tournaments - Milimeter Esports</title>
     <title>BGMI Tournaments | MM Esports India</title>
 
-<meta name="description" content="Join daily BGMI tournaments hosted by MM Esports. Competitive custom rooms and prize pool matches in India.">
-    
+    <meta name="description"
+        content="Join daily BGMI tournaments hosted by MM Esports. Competitive custom rooms and prize pool matches in India.">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- TOP BAR -->
@@ -23,10 +27,26 @@
             <a href="scrims.html">Scrims</a>
             <a href="tournaments.html">Tournaments</a>
             <a href="past-tournaments.html">Past Tournaments</a>
-            <a href="#">Discord</a>
+            <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
             <a href="about.html">About</a>
-            
+            <button class="nav-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
         </div>
+        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="scrims.html">Scrims</a>
+        <a href="tournaments.html">Tournaments</a>
+        <a href="past-tournaments.html">Past Tournaments</a>
+        <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+        <a href="about.html">About</a>
+        <button class="mobile-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
     </div>
 
     <!-- TOURNAMENTS HERO SECTION -->
@@ -117,7 +137,7 @@
                 </div>
             </div>
 
-            <div class="tournament-card" style="display: none;"> 
+            <div class="tournament-card" style="display: none;">
                 <div class="tournament-header">
                     <div class="tournament-status">COMING SOON</div>
                     <h3>Rookie Championship</h3>
@@ -173,7 +193,7 @@
                         <span class="detail-value">League + Playoffs</span>
                     </div>
                 </div>
-        </div>
+            </div>
     </section>
 
     <!-- RANKING SECTION -->
@@ -246,33 +266,36 @@
             <div class="rule-card">
                 <div class="rule-number">02</div>
                 <h3>Match Format</h3>
-                <p>Battle Royale format with multiple games. Ranking based on final placement and eliminations. Top teams qualify for finals.</p>
+                <p>Battle Royale format with multiple games. Ranking based on final placement and eliminations. Top
+                    teams qualify for finals.</p>
             </div>
 
             <div class="rule-card">
                 <div class="rule-number">03</div>
                 <h3>Equipment Rules</h3>
-                <p>Fair play policy enforced. No cheating, hacking, or prohibited equipment allowed. Penalties include disqualification.</p>
+                <p>Fair play policy enforced. No cheating, hacking, or prohibited equipment allowed. Penalties include
+                    disqualification.</p>
             </div>
 
             <div class="rule-card">
                 <div class="rule-number">04</div>
                 <h3>Prize Distribution</h3>
-                <p>Prizes distributed within 48 hours post tournament. Top 5 teams rewarded. Proof of team captain required for payout.</p>
+                <p>Prizes distributed within 48 hours post tournament. Top 5 teams rewarded. Proof of team captain
+                    required for payout.</p>
             </div>
         </div>
     </section>
 
 
-         <!-- FOOTER -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
-               <div class="footer-section footer-logo">
-            <div class="logo-space">
-                <img src="logo.jpeg" alt="MM" class="logo-img">
+            <div class="footer-section footer-logo">
+                <div class="logo-space">
+                    <img src="logo.jpeg" alt="MM" class="logo-img">
+                </div>
+                <h4>Milimeter Esports</h4>
             </div>
-            <h4>Milimeter Esports</h4>
-        </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
@@ -285,43 +308,62 @@
                 </ul>
             </div>
 
-           <div class="footer-section">
-    <h4>Community</h4>
-    <ul>
-        <li><a href="https://discord.gg/6aSSJKgqym" target="_blank"><i class="fab fa-discord"></i> Discord Server</a></li>
-        <li><a href="https://youtube.com/@mm._esportss" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
-        <li><a href="https://www.instagram.com/mm._esports" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
-        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
-    </ul>
-</div>
-            
-           <div class="footer-section">
-    <h4>Support</h4>
-    <ul>
-        <li><a href="support.html#rules">Rules & Regulations</a></li>
-        <li><a href="support.html#terms">Terms of Service</a></li>
-        <li><a href="support.html#privacy">Privacy Policy</a></li>
-        <li><a href="support.html#contact">Contact Us</a></li>
-    </ul>
-</div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank"><i class="fab fa-discord"></i> Discord
+                            Server</a></li>
+                    <li><a href="https://youtube.com/@mm._esportss" target="_blank"><i class="fab fa-youtube"></i>
+                            YouTube</a></li>
+                    <li><a href="https://www.instagram.com/mm._esports" target="_blank"><i class="fab fa-instagram"></i>
+                            Instagram</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </div>
 
-        <div class="footer-bottom">
-            <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
-            <p>Built with precision. Powered by passion. 🎮🔥</p>
-        </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="support.html#rules">Rules & Regulations</a></li>
+                    <li><a href="support.html#terms">Terms of Service</a></li>
+                    <li><a href="support.html#privacy">Privacy Policy</a></li>
+                    <li><a href="support.html#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
+                <p>Built with precision. Powered by passion. 🎮🔥</p>
+            </div>
     </footer>
 
     <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('.mobile-menu-btn');
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+                document.querySelector('.mobile-menu-btn').classList.remove('active');
+            });
+        });
+
         // Particle Animation
         const canvas = document.getElementById('particleCanvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
-            
+
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            
+
             let particles = [];
-            
+
             class Particle {
                 constructor() {
                     this.x = Math.random() * canvas.width;
@@ -334,18 +376,18 @@
                     this.life = Math.random() * 100 + 50;
                     this.maxLife = this.life;
                 }
-                
+
                 update() {
                     this.x += this.speedX;
                     this.y += this.speedY;
                     this.life--;
-                    
+
                     if (this.x > canvas.width) this.x = 0;
                     if (this.x < 0) this.x = canvas.width;
                     if (this.y > canvas.height) this.y = 0;
                     if (this.y < 0) this.y = canvas.height;
                 }
-                
+
                 draw() {
                     const fade = this.life / this.maxLife;
                     ctx.fillStyle = this.color + (this.opacity * fade) + ')';
@@ -356,52 +398,60 @@
                     ctx.shadowColor = this.color + (this.opacity * fade) + ')';
                 }
             }
-            
+
             function createParticles() {
                 for (let i = 0; i < 50; i++) {
                     particles.push(new Particle());
                 }
             }
-            
+
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
+
                 particles = particles.filter(p => p.life > 0);
-                
+
                 for (let particle of particles) {
                     particle.update();
                     particle.draw();
                 }
-                
+
                 if (particles.length < 100) {
                     createParticles();
                 }
-                
+
                 requestAnimationFrame(animateParticles);
             }
-            
+
             createParticles();
             animateParticles();
-            
+
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
             });
         }
+
+        // Auth Modal Logic
+        const authModal = document.getElementById('authModal');
+
+        function openAuthModal() {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeAuthModal() {
+            authModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target == authModal) {
+                closeAuthModal();
+            }
+        }
     </script>
 
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
