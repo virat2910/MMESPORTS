@@ -5,7 +5,7 @@ if (typeof supabase === 'undefined') {
 
 const _supabase = supabase.createClient(
     'https://olmumjarhohohrjaltwc.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sbXVtamFyaG9ob2hyamFsdHdjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyNjIzNjQsImV4cCI6MjA4NzgzODM2NH0.5eNnXwHYpF8ozPmTCw4eQo4dR06zZ7K-RicsxPTZ88w'
+    'sb_publishable_Ok5t3-xRqmu-j7hDLszCHQ_2rtPhVHs'
 );
 
 // Function to initiate Discord Login
