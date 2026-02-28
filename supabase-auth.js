@@ -10,7 +10,7 @@ async function loginWithDiscord() {
     const { data, error } = await _supabase.auth.signInWithOAuth({
         provider: 'discord',
         options: {
-            redirectTo: window.location.origin + window.location.pathname
+            redirectTo: 'https://mmesports.in'
         }
     });
 
