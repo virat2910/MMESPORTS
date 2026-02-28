@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Past Tournaments - Milimeter Esports</title>
     <title>About MM Esports | BGMI Community India</title>
 
-<meta name="description" content="MM Esports is an Best Server And It gives the proper prizepool and handles tournament very easily.">
+    <meta name="description"
+        content="MM Esports is an Best Server And It gives the proper prizepool and handles tournament very easily.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <!-- TOP BAR -->
@@ -24,7 +28,24 @@
             <a href="past-tournaments.html">Past Tournaments</a>
             <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
             <a href="about.html">About</a>
+            <button class="nav-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
         </div>
+        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="scrims.html">Scrims</a>
+        <a href="tournaments.html">Tournaments</a>
+        <a href="past-tournaments.html">Past Tournaments</a>
+        <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+        <a href="about.html">About</a>
+        <button class="mobile-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
     </div>
 
     <!-- PAST TOURNAMENTS HERO -->
@@ -37,12 +58,12 @@
         </div>
     </section>
 
-       <!-- POSTER SLIDER SECTION -->
+    <!-- POSTER SLIDER SECTION -->
     <section class="poster-slider-section">
         <h2 class="section-heading">Tournament Gallery</h2>
         <div class="slider-container">
             <button class="slider-btn prev-btn" onclick="moveSlider(-1)">‹</button>
-            
+
             <div class="slider-wrapper">
                 <div class="slider-track" id="posterSlider">
                     <!-- Poster 1 -->
@@ -156,11 +177,11 @@
                         </div>
                     </div>
                 </div>
-            </div>  <!-- slider-wrapper closes HERE -->
-            
+            </div> <!-- slider-wrapper closes HERE -->
+
             <button class="slider-btn next-btn" onclick="moveSlider(1)">›</button>
-        </div>  <!-- slider-container closes HERE -->
-        
+        </div> <!-- slider-container closes HERE -->
+
         <div class="slider-dots" id="sliderDots"></div>
     </section>
 
@@ -237,12 +258,12 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
-             <div class="footer-section footer-logo">
-            <div class="logo-space">
-                <img src="logo.jpeg" alt="MM" class="logo-img">
+            <div class="footer-section footer-logo">
+                <div class="logo-space">
+                    <img src="logo.jpeg" alt="MM" class="logo-img">
+                </div>
+                <h4>Milimeter Esports</h4>
             </div>
-            <h4>Milimeter Esports</h4>
-        </div>
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
@@ -255,43 +276,62 @@
                 </ul>
             </div>
 
-         <div class="footer-section">
-    <h4>Community</h4>
-    <ul>
-        <li><a href="https://discord.gg/6aSSJKgqym" target="_blank"><i class="fab fa-discord"></i> Discord Server</a></li>
-        <li><a href="https://youtube.com/@mm._esportss" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
-        <li><a href="https://www.instagram.com/mm._esports" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
-        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
-    </ul>
-</div>
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank"><i class="fab fa-discord"></i> Discord
+                            Server</a></li>
+                    <li><a href="https://youtube.com/@mm._esportss" target="_blank"><i class="fab fa-youtube"></i>
+                            YouTube</a></li>
+                    <li><a href="https://www.instagram.com/mm._esports" target="_blank"><i class="fab fa-instagram"></i>
+                            Instagram</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </div>
 
             <div class="footer-section">
-    <h4>Support</h4>
-    <ul>
-        <li><a href="support.html#rules">Rules & Regulations</a></li>
-        <li><a href="support.html#terms">Terms of Service</a></li>
-        <li><a href="support.html#privacy">Privacy Policy</a></li>
-        <li><a href="support.html#contact">Contact Us</a></li>
-    </ul>
-</div>
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="support.html#rules">Rules & Regulations</a></li>
+                    <li><a href="support.html#terms">Terms of Service</a></li>
+                    <li><a href="support.html#privacy">Privacy Policy</a></li>
+                    <li><a href="support.html#contact">Contact Us</a></li>
+                </ul>
+            </div>
 
-        <div class="footer-bottom">
-            <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
-            <p>Built with precision. Powered by passion. 🎮🔥</p>
-        </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
+                <p>Built with precision. Powered by passion. 🎮🔥</p>
+            </div>
     </footer>
 
     <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('.mobile-menu-btn');
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+                document.querySelector('.mobile-menu-btn').classList.remove('active');
+            });
+        });
+
         // Particle Animation
         const canvas = document.getElementById('particleCanvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
-            
+
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            
+
             let particles = [];
-            
+
             class Particle {
                 constructor() {
                     this.x = Math.random() * canvas.width;
@@ -304,18 +344,18 @@
                     this.life = Math.random() * 100 + 50;
                     this.maxLife = this.life;
                 }
-                
+
                 update() {
                     this.x += this.speedX;
                     this.y += this.speedY;
                     this.life--;
-                    
+
                     if (this.x > canvas.width) this.x = 0;
                     if (this.x < 0) this.x = canvas.width;
                     if (this.y > canvas.height) this.y = 0;
                     if (this.y < 0) this.y = canvas.height;
                 }
-                
+
                 draw() {
                     const fade = this.life / this.maxLife;
                     ctx.fillStyle = this.color + (this.opacity * fade) + ')';
@@ -326,33 +366,33 @@
                     ctx.shadowColor = this.color + (this.opacity * fade) + ')';
                 }
             }
-            
+
             function createParticles() {
                 for (let i = 0; i < 50; i++) {
                     particles.push(new Particle());
                 }
             }
-            
+
             function animateParticles() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
+
                 particles = particles.filter(p => p.life > 0);
-                
+
                 for (let particle of particles) {
                     particle.update();
                     particle.draw();
                 }
-                
+
                 if (particles.length < 100) {
                     createParticles();
                 }
-                
+
                 requestAnimationFrame(animateParticles);
             }
-            
+
             createParticles();
             animateParticles();
-            
+
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
@@ -376,9 +416,9 @@
         }
 
         function updateSlider() {
-    const slideWidth = slides[0].offsetWidth + 30; // width + gap (30px from CSS)
-    slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
-            
+            const slideWidth = slides[0].offsetWidth + 30; // width + gap (30px from CSS)
+            slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
             // Update dots
             document.querySelectorAll('.dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSlide);
@@ -415,13 +455,28 @@
             if (touchStartX - touchEndX > 50) moveSlider(1);
             if (touchEndX - touchStartX > 50) moveSlider(-1);
         });
+
+        // Auth Modal Logic
+        const authModal = document.getElementById('authModal');
+
+        function openAuthModal() {
+            authModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeAuthModal() {
+            authModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target == authModal) {
+                closeAuthModal();
+            }
+        }
     </script>
 
 </body>
 
 </html>
-
-
-
-
-
