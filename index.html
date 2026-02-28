@@ -279,25 +279,7 @@
             }
         });
 
-        // Auth Modal Logic
-        const authModal = document.getElementById('authModal');
 
-        function openAuthModal() {
-            authModal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-        }
-
-        function closeAuthModal() {
-            authModal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function (event) {
-            if (event.target == authModal) {
-                closeAuthModal();
-            }
-        }
 
 
     </script>
