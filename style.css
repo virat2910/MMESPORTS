@@ -1522,7 +1522,9 @@ body {
     .offer-grid,
     .prizes-grid,
     .tournaments-container,
-    .rules-grid {
+    .rules-grid,
+    .stats-grid,
+    .mission-grid {
         grid-template-columns: 1fr;
     }
 }
