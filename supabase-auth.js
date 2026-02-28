@@ -13,7 +13,7 @@ async function loginWithDiscord() {
             redirectTo: window.location.origin + window.location.pathname
         }
     });
-    
+
     if (error) {
         console.error("Error logging in with Discord:", error.message);
         alert("Failed to login with Discord. Please try again.");
@@ -26,7 +26,7 @@ async function signUpWithEmail(email, password) {
         email: email,
         password: password
     });
-    
+
     if (error) {
         console.error("Error signing up:", error.message);
         alert(error.message);
@@ -42,7 +42,7 @@ async function loginWithEmail(email, password) {
         email: email,
         password: password
     });
-    
+
     if (error) {
         console.error("Error logging in:", error.message);
         alert(error.message);
@@ -80,6 +80,31 @@ function updateUIForLoggedOut() {
     });
 }
 
+// Auth Modal Logic (Global)
+function openAuthModal() {
+    const authModal = document.getElementById('authModal');
+    if (authModal) {
+        authModal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+}
+
+function closeAuthModal() {
+    const authModal = document.getElementById('authModal');
+    if (authModal) {
+        authModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modal when clicking outside
+window.onclick = function (event) {
+    const authModal = document.getElementById('authModal');
+    if (event.target === authModal) {
+        closeAuthModal();
+    }
+}
+
 // Check if user is already logged in on page load
 _supabase.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
@@ -99,18 +124,56 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', loginWithDiscord);
     });
 
-    // Email/Password Form
+    // Toggle Login/Sign Up Mode
+    const toggleBtn = document.getElementById('toggleAuthMode');
+    const toggleTextContainer = document.querySelector('.auth-footer');
     const authForms = document.querySelectorAll('.auth-form');
+
+    if (toggleBtn && toggleTextContainer) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const authTitle = document.querySelector('.auth-modal-content h2');
+            const authSubtitle = document.querySelector('.auth-modal-content p');
+            const submitBtn = document.querySelector('.auth-submit-btn');
+
+            authForms.forEach(form => {
+                if (submitBtn.textContent === 'Login') {
+                    // Switch to Sign Up
+                    authTitle.textContent = 'Create Account';
+                    authSubtitle.textContent = 'Join MM Esports';
+                    submitBtn.textContent = 'Sign Up';
+                    toggleTextContainer.childNodes[0].nodeValue = "Already have an account? ";
+                    toggleBtn.textContent = "Login";
+                    form.setAttribute('data-mode', 'signup');
+                } else {
+                    // Switch to Login
+                    authTitle.textContent = 'Welcome Back';
+                    authSubtitle.textContent = 'Sign in to MM Esports';
+                    submitBtn.textContent = 'Login';
+                    toggleTextContainer.childNodes[0].nodeValue = "Don't have an account? ";
+                    toggleBtn.textContent = "Sign up";
+                    form.setAttribute('data-mode', 'login');
+                }
+            });
+        });
+    }
+
+    // Email/Password Form
     authForms.forEach(form => {
+        // Default mode is login
+        form.setAttribute('data-mode', 'login');
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const email = form.querySelector('input[type="email"]').value;
             const password = form.querySelector('input[type="password"]').value;
-            
-            // Basic logic: if they click submit, try to log in. 
-            // In a real app we'd have a toggle between "Login" and "Sign up" states on the modal.
-            // For now, let's try login first.
-            loginWithEmail(email, password);
+
+            const mode = form.getAttribute('data-mode');
+            if (mode === 'signup') {
+                signUpWithEmail(email, password);
+            } else {
+                loginWithEmail(email, password);
+            }
         });
     });
 });
