@@ -7,7 +7,401 @@
     <title>About MM Esports | BGMI Community India</title>
 
     <meta name="description"
+        content="MM Esports is an Indian BGMI esports community with 8K+ members host<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Milimeter Esports</title>
+    <title>About MM Esports | BGMI Community India</title>
+
+    <meta name="description"
         content="MM Esports is an Indian BGMI esports community with 8K+ members hosting scrims and tournaments.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <div class="logo-space"><img src="logo.jpeg" alt="MM" class="logo-img"></div>
+            <span class="brand-name">Milimeter Esports</span>
+        </div>
+
+        <div class="topbar-right">
+            <a href="index.html">Home</a>
+            <a href="scrims.html">Scrims</a>
+            <a href="tournaments.html">Tournaments</a>
+            <a href="past-tournaments.html">Past Tournaments</a>
+            <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+            <a href="about.html">About</a>
+            <button class="nav-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="scrims.html">Scrims</a>
+        <a href="tournaments.html">Tournaments</a>
+        <a href="past-tournaments.html">Past Tournaments</a>
+        <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
+        <a href="about.html">About</a>
+        <button class="mobile-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
+    </div>
+
+    <!-- ABOUT HERO SECTION -->
+    <section class="about-hero">
+        <canvas id="particleCanvas" class="particle-canvas"></canvas>
+        <div class="animated-bg"></div>
+        <div class="about-hero-content">
+            <h1 class="about-title">ABOUT MILIMETER ESPORTS</h1>
+            <p class="about-tagline">Where Precision Meets Performance</p>
+        </div>
+    </section>
+
+    <!-- MISSION SECTION -->
+    <section class="mission-section">
+        <div class="mission-grid">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p class="mission-text">
+                    At Milimeter Esports, we believe that <strong>greatness is achieved millimeter by
+                        millimeter</strong>. We are dedicated to building a world-class competitive gaming organization
+                    where passion meets precision, and every player has the opportunity to shine on the biggest stages.
+                </p>
+                <p class="mission-text">
+                    With <strong>45+ tournaments hosted</strong> and <strong>daily scrims</strong> running throughout
+                    the day, we provide endless competitive opportunities. Our community participates in intense
+                    scrimmages every single day, competing for ranking points and striving for excellence.
+                </p>
+                <p class="mission-text">
+                    We foster a culture of excellence through organized T3, T2, and elite-level scrims, high-stakes
+                    tournaments with prize pools, and a supportive community that values discipline, respect, and
+                    continuous improvement. Every player matters, and every victory counts.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card stat-1">
+                    <div class="stat-number">8K+</div>
+                    <div class="stat-label">Community Members</div>
+                </div>
+                <div class="stat-card stat-2">
+                    <div class="stat-number">45+</div>
+                    <div class="stat-label">Tournaments Hosted</div>
+                </div>
+                <div class="stat-card stat-3">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Active Players</div>
+                </div>
+                <div class="stat-card stat-4">
+                    <div class="stat-number">Prizepool</div>
+                    <div class="stat-label">3,50,000lakhs+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES SECTION -->
+    <section class="values-section">
+        <h2 class="section-heading">Our Core Values</h2>
+        <div class="values-container">
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3>Excellence</h3>
+                <p>We pursue perfection in every match, strategy, and interaction. Excellence is not a destination, it's
+                    a journey.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3>Community</h3>
+                <p>We believe in the power of unity. Our community is the backbone of our success and growth.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">⚡</div>
+                <h3>Integrity</h3>
+                <p>Fair play, honesty, and respect are non-negotiable. We maintain the highest standards in competitive
+                    gaming.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🚀</div>
+                <h3>Innovation</h3>
+                <p>We constantly evolve our strategies and systems to stay ahead of the competition and lead the esports
+                    industry.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT WE OFFER SECTION -->
+    <section class="offer-section">
+        <h2 class="section-heading">What We Offer</h2>
+        <div class="offer-grid">
+            <div class="offer-card">
+                <div class="offer-number">01</div>
+                <h3>Daily Scrims</h3>
+                <p>3-4 organized scrimmages daily across all skill levels. From beginners to pros, everyone has a place
+                    to compete and improve.</p>
+                <ul class="offer-list">
+                    <li>T3 Beginner Scrims</li>
+                    <li>T2 & T2Q Intermediate</li>
+                    <li>Elite Pro Scrims</li>
+                </ul>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-number">02</div>
+                <h3>Tournaments</h3>
+                <p>Monthly tournaments with prize pools, structured point systems, and ranking ladder. Compete for glory
+                    and rewards.</p>
+                <ul class="offer-list">
+                    <li>Weekly Mini Tournaments</li>
+                    <li>Monthly Finals</li>
+                    <li>Prize Pool Distribution</li>
+                </ul>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-number">03</div>
+                <h3>Community Support</h3>
+                <p>24/7 active community with experienced mentors, coaching, and resources to help you grow as a
+                    competitive player.</p>
+                <ul class="offer-list">
+                    <li>Live Coaching</li>
+                    <li>Strategy Guides</li>
+                    <li>Community Events</li>
+                </ul>
+            </div>
+
+            <div class="offer-card">
+                <div class="offer-number">04</div>
+                <h3>Professional Growth</h3>
+                <p>Opportunities for talented players to join professional teams, get scouted, and compete at the
+                    highest levels.</p>
+                <ul class="offer-list">
+                    <li>Pro Team Access</li>
+                    <li>Sponsorship Deals</li>
+                    <li>Platform Building</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section footer-logo">
+                <div class="logo-space">
+                    <img src="logo.jpeg" alt="MM" class="logo-img">
+                </div>
+                <h4>Milimeter Esports</h4>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="scrims.html">Scrims</a></li>
+                    <li><a href="tournaments.html">Tournaments</a></li>
+                    <li><a href="past-tournaments.html">Past Tournaments</a></li>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </div>
+
+
+            <div class="footer-section">
+                <h4>Community</h4>
+                <ul>
+                    <li><a href="https://discord.gg/6aSSJKgqym" target="_blank"><i class="fab fa-discord"></i> Discord
+                            Server</a></li>
+                    <li><a href="https://youtube.com/@mm._esportss" target="_blank"><i class="fab fa-youtube"></i>
+                            YouTube</a></li>
+                    <li><a href="https://www.instagram.com/mm._esports" target="_blank"><i class="fab fa-instagram"></i>
+                            Instagram</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="support.html#rules">Rules & Regulations</a></li>
+                    <li><a href="support.html#terms">Terms of Service</a></li>
+                    <li><a href="support.html#privacy">Privacy Policy</a></li>
+                    <li><a href="support.html#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Milimeter Esports. All Rights Reserved.</p>
+                <p>Built with precision. Powered by passion. 🎮🔥</p>
+            </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('.mobile-menu-btn');
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+        }
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+                document.querySelector('.mobile-menu-btn').classList.remove('active');
+            });
+        });
+
+        // Particle Animation
+        const canvas = document.getElementById('particleCanvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1.5 - 0.75;
+                    this.speedY = Math.random() * 1.5 - 0.75;
+                    this.color = Math.random() > 0.5 ? 'rgba(255, 46, 46, ' : 'rgba(46, 96, 255, ';
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                    this.life = Math.random() * 100 + 50;
+                    this.maxLife = this.life;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    this.life--;
+
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y > canvas.height) this.y = 0;
+                    if (this.y < 0) this.y = canvas.height;
+                }
+
+                draw() {
+                    const fade = this.life / this.maxLife;
+                    ctx.fillStyle = this.color + (this.opacity * fade) + ')';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = this.size * 2;
+                    ctx.shadowColor = this.color + (this.opacity * fade) + ')';
+                }
+            }
+
+            function createParticles() {
+                for (let i = 0; i < 50; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                particles = particles.filter(p => p.life > 0);
+
+                for (let particle of particles) {
+                    particle.update();
+                    particle.draw();
+                }
+
+                if (particles.length < 100) {
+                    createParticles();
+                }
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            createParticles();
+            animateParticles();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.value-card, .offer-card, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+
+    </script>
+
+    <!-- AUTH MODAL -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <div class="logo-space"><img src="logo.jpeg" alt="MM" class="logo-img"></div>
+            <h2>Welcome Back</h2>
+            <p>Sign in to MM Esports</p>
+
+            <button class="discord-login-btn">
+                <i class="fab fa-discord"></i> Login with Discord
+            </button>
+
+            <div class="auth-divider">
+                <span>OR</span>
+            </div>
+
+            <form class="auth-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="auth-submit-btn">Login</button>
+            </form>
+
+            <p class="auth-footer">Don't have an account? <a href="#" id="toggleAuthMode">Sign up</a></p>
+        </div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-auth.js"></script>
+</body>
+
+</html>ing scrims and tournaments.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -410,3 +804,4 @@
 </body>
 
 </html>
+
