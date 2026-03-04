@@ -382,8 +382,6 @@
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                     ctx.fill();
-                    ctx.shadowBlur = this.size * 2;
-                    ctx.shadowColor = this.color + (this.opacity * fade) + ')';
                 }
             }
 
@@ -529,7 +527,8 @@
                 <button type="submit" class="auth-submit-btn">Login</button>
             </form>
 
-            <p class="auth-footer">Don't have an account? <a href="#" id="toggleAuthMode" data-current-mode="login" onclick="switchAuthMode(event)">Sign
+            <p class="auth-footer">Don't have an account? <a href="#" id="toggleAuthMode" data-current-mode="login"
+                    onclick="switchAuthMode(event)">Sign
                     up</a></p>
         </div>
     </div>
@@ -609,7 +608,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
 
     <!-- Our Auth Logic -->
-    <script src="firebase-auth.js"></script>
+    <script src="auth-v2.js"></script>
 </body>
 
 </html>
