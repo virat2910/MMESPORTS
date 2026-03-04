@@ -246,8 +246,10 @@ async function loginWithEmail(email, password) {
 
 // Function to Logout
 async function logout() {
+    console.log("Logout initiated...");
     try {
         await auth.signOut();
+        console.log("Firebase signOut successful.");
         updateUIForLoggedOut();
     } catch (error) {
         console.error("Error signing out:", error.message);
@@ -289,8 +291,16 @@ function updateUIForLoggedOut() {
 // ==========================================
 
 function openAuthModal() {
+    console.log("Opening Auth Modal...");
     const authModal = document.getElementById('authModal');
     if (authModal) {
+        // Reset to login mode whenever opening
+        const link = document.getElementById('toggleAuthMode');
+        if (link && link.getAttribute('data-current-mode') === 'signup') {
+            console.log("Resetting modal to LOGIN mode on open");
+            switchAuthMode();
+        }
+
         authModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -440,6 +450,7 @@ async function saveProfileChanges() {
 // ==========================================
 
 auth.onAuthStateChanged((user) => {
+    console.log("Auth State Changed. User:", user ? user.email : "Logged Out");
     if (user) {
         updateUIForUser(user);
     } else {
