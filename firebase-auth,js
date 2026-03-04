@@ -149,6 +149,9 @@ function showDiscordLoading(loading) {
 function showAuthSuccess(message) {
     const modalContent = document.querySelector('.auth-modal-content');
     if (modalContent) {
+        // Save the original form state or a clean copy if needed, 
+        // but here we just replace the inner content.
+        // To allow resetting, we should ideally have a template.
         modalContent.innerHTML = `
             <span class="close-modal" onclick="closeAuthModal()">&times;</span>
             <div class="success-message">
@@ -158,7 +161,7 @@ function showAuthSuccess(message) {
                 <h2 style="text-align: center;">Success!</h2>
                 <p style="text-align: center;">${message}</p>
                 <div style="text-align: center; margin-top: 1.5rem;">
-                     <button class="auth-submit-btn" onclick="closeAuthModal()">Great, Thanks!</button>
+                     <button class="auth-submit-btn" onclick="location.reload();">Great, Thanks!</button>
                 </div>
             </div>
         `;
@@ -448,29 +451,32 @@ function switchAuthMode(e) {
     var link = document.getElementById('toggleAuthMode');
     if (!link) return;
 
+    var container = link.closest('.auth-modal-content');
+    if (!container) return;
+
     var currentMode = link.getAttribute('data-current-mode') || 'login';
-    var authTitle = document.querySelector('.auth-modal-content h2');
-    var submitBtn = document.querySelector('.auth-submit-btn');
-    var signupFields = document.querySelector('.signup-fields');
+    var authTitle = container.querySelector('h2');
+    var authSub = container.querySelector('p');
+    var submitBtn = container.querySelector('.auth-submit-btn');
+    var signupFields = container.querySelector('.signup-fields');
+    var authForm = container.querySelector('.auth-form');
 
     if (currentMode === 'login') {
         if (authTitle) authTitle.textContent = 'Create Account';
+        if (authSub) authSub.textContent = 'Join the MM Esports community';
         if (submitBtn) submitBtn.textContent = 'Sign Up';
         if (signupFields) signupFields.style.display = 'block';
         link.textContent = 'Login here';
         link.setAttribute('data-current-mode', 'signup');
-        document.querySelectorAll('.auth-form').forEach(function (f) {
-            f.setAttribute('data-mode', 'signup');
-        });
+        if (authForm) authForm.setAttribute('data-mode', 'signup');
     } else {
         if (authTitle) authTitle.textContent = 'Welcome Back';
+        if (authSub) authSub.textContent = 'Sign in to MM Esports';
         if (submitBtn) submitBtn.textContent = 'Login';
         if (signupFields) signupFields.style.display = 'none';
         link.textContent = 'Sign up';
         link.setAttribute('data-current-mode', 'login');
-        document.querySelectorAll('.auth-form').forEach(function (f) {
-            f.setAttribute('data-mode', 'login');
-        });
+        if (authForm) authForm.setAttribute('data-mode', 'login');
     }
 }
 
