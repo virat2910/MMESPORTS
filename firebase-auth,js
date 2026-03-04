@@ -30,7 +30,7 @@ const db = firebase.firestore();
 // 3. Add Redirect URI: http://localhost:3000/index.html (for local dev)
 //    and https://mmesports.in/index.html (for production)
 // 4. Copy your Client ID and paste it below
-const DISCORD_CLIENT_ID = '1477227771334889574'; // <-- Replace with your Discord App Client ID
+const DISCORD_CLIENT_ID = '1477227771334889574';
 const DISCORD_REDIRECT_URI = window.location.origin + '/index.html';
 const DISCORD_SCOPES = 'identify email';
 
