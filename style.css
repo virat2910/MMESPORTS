@@ -1448,7 +1448,9 @@ body {
 }
 
 .nav-login-btn,
-.mobile-login-btn {
+.nav-profile-btn,
+.mobile-login-btn,
+.mobile-profile-btn {
     background: rgba(225, 29, 72, 0.1);
     color: var(--primary-cyan);
     border: 1px solid var(--border-glow);
@@ -1460,22 +1462,27 @@ body {
     cursor: pointer;
     transition: 0.3s;
     box-shadow: var(--shadow-glow);
+    margin-left: 10px;
 }
 
 .nav-login-btn:hover,
-.mobile-login-btn:hover {
+.nav-profile-btn:hover,
+.mobile-login-btn:hover,
+.mobile-profile-btn:hover {
     background: var(--primary-cyan);
     color: #000;
     box-shadow: 0 0 20px var(--primary-cyan);
     transform: translateY(-2px);
 }
 
-.mobile-login-btn {
+.mobile-login-btn,
+.mobile-profile-btn {
     width: 100%;
     padding: 14px;
     font-size: 1.1rem;
     text-align: center;
     margin-top: 1rem;
+    margin-left: 0;
 }
 
 /* Mobile Tweaks */
@@ -1776,4 +1783,146 @@ body {
         opacity: 1;
         transform: scale(1);
     }
+}/* =========================================================================
+   PROFILE MODAL STYLES
+   ========================================================================= */
+.profile-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 12, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.profile-modal-content {
+    background: rgba(20, 20, 25, 0.95);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.15), inset 0 0 20px rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    padding: 2.5rem;
+    width: 95%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.profile-modal.active .profile-modal-content {
+    transform: translateY(0);
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 1.5rem;
+}
+
+.profile-avatar {
+    font-size: 4rem;
+    color: var(--primary-cyan);
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+}
+
+.profile-header h2 {
+    color: #fff;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 480px) {
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.profile-field label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.3rem;
+}
+
+.profile-field p {
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    word-break: break-all;
+}
+
+.profile-edit-btn,
+.profile-save-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(135deg, var(--primary-cyan), #0077ff);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-edit-btn:hover,
+.profile-save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+}
+
+.profile-cancel-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: transparent;
+    color: var(--text-light);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.profile-cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.profile-action-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
