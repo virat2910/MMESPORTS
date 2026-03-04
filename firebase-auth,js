@@ -1,0 +1,525 @@
+// --- Firebase Configuration ---
+const firebaseConfig = {
+    apiKey: "AIzaSyDRfoteeGymzimFH6vtXhcvdnEnAOt3xu0",
+    authDomain: "mmesports-e4041.firebaseapp.com",
+    projectId: "mmesports-e4041",
+    storageBucket: "mmesports-e4041.firebasestorage.app",
+    messagingSenderId: "523040510478",
+    appId: "1:523040510478:web:21faf9117e886cc394a25f",
+    measurementId: "G-PP7HDT9ZKT"
+};
+
+// Initialize Firebase
+if (typeof firebase === 'undefined') {
+    console.error("Firebase library not loaded! Check your script tags.");
+} else {
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+}
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// ==========================================
+// DISCORD OAUTH2 CONFIGURATION
+// ==========================================
+// To enable Discord login:
+// 1. Go to https://discord.com/developers/applications
+// 2. Create a New Application, then go to OAuth2 > General
+// 3. Add Redirect URI: http://localhost:3000/index.html (for local dev)
+//    and https://mmesports.in/index.html (for production)
+// 4. Copy your Client ID and paste it below
+const DISCORD_CLIENT_ID = 'YOUR_DISCORD_CLIENT_ID'; // <-- Replace with your Discord App Client ID
+const DISCORD_REDIRECT_URI = window.location.origin + '/index.html';
+const DISCORD_SCOPES = 'identify email';
+
+// Initiate Discord OAuth2 Login (Implicit Flow - no backend needed)
+function loginWithDiscord() {
+    if (DISCORD_CLIENT_ID === 'YOUR_DISCORD_CLIENT_ID') {
+        alert("Discord login is not configured yet. Please contact the admin or use Email/Password login.");
+        return;
+    }
+    const state = Math.random().toString(36).substring(2);
+    sessionStorage.setItem('discord_oauth_state', state);
+
+    const discordAuthUrl = `https://discord.com/api/oauth2/authorize` +
+        `?client_id=${DISCORD_CLIENT_ID}` +
+        `&redirect_uri=${encodeURIComponent(DISCORD_REDIRECT_URI)}` +
+        `&response_type=token` +
+        `&scope=${encodeURIComponent(DISCORD_SCOPES)}` +
+        `&state=${state}`;
+
+    window.location.href = discordAuthUrl;
+}
+
+// Handle Discord OAuth2 callback (called on page load if hash fragment present)
+async function handleDiscordCallback() {
+    const hash = window.location.hash;
+    if (!hash || !hash.includes('access_token')) return;
+
+    const params = new URLSearchParams(hash.substring(1));
+    const accessToken = params.get('access_token');
+    const tokenType = params.get('token_type');
+    const state = params.get('state');
+    const savedState = sessionStorage.getItem('discord_oauth_state');
+
+    // Clear hash from URL
+    history.replaceState(null, null, window.location.pathname);
+
+    if (!accessToken) return;
+    if (state && savedState && state !== savedState) {
+        console.error("Discord OAuth state mismatch. Possible CSRF attack.");
+        return;
+    }
+    sessionStorage.removeItem('discord_oauth_state');
+
+    // Show loading state
+    showDiscordLoading(true);
+
+    try {
+        // Fetch Discord user info
+        const discordRes = await fetch('https://discord.com/api/users/@me', {
+            headers: { Authorization: `${tokenType} ${accessToken}` }
+        });
+
+        if (!discordRes.ok) throw new Error("Failed to fetch Discord user data.");
+        const discordUser = await discordRes.json();
+
+        const discordEmail = discordUser.email || `discord_${discordUser.id}@mmesports.app`;
+        const discordPassword = `discord_${discordUser.id}_mmesports_secure`;
+        const discordName = discordUser.global_name || discordUser.username;
+
+        // Try to sign in first; if no account, create one
+        let firebaseUser;
+        try {
+            const loginResult = await auth.signInWithEmailAndPassword(discordEmail, discordPassword);
+            firebaseUser = loginResult.user;
+        } catch (loginErr) {
+            if (loginErr.code === 'auth/user-not-found' || loginErr.code === 'auth/invalid-credential' || loginErr.code === 'auth/invalid-email') {
+                // Create new account
+                const createResult = await auth.createUserWithEmailAndPassword(discordEmail, discordPassword);
+                firebaseUser = createResult.user;
+
+                await firebaseUser.updateProfile({ displayName: discordName });
+
+                // Save to Firestore
+                await db.collection('users').doc(firebaseUser.uid).set({
+                    name: discordName,
+                    ign: discordUser.username,
+                    bgmi_id: '',
+                    discord: discordUser.username + '#' + (discordUser.discriminator || '0'),
+                    phone: '',
+                    email: discordEmail,
+                    discord_id: discordUser.id,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } else {
+                throw loginErr;
+            }
+        }
+
+        closeAuthModal();
+        updateUIForUser(firebaseUser);
+        console.log("Discord login successful:", firebaseUser.displayName);
+
+    } catch (error) {
+        console.error("Discord login error:", error);
+        alert("Discord login failed: " + error.message);
+    } finally {
+        showDiscordLoading(false);
+    }
+}
+
+function showDiscordLoading(loading) {
+    const discordBtns = document.querySelectorAll('.discord-login-btn');
+    discordBtns.forEach(btn => {
+        btn.disabled = loading;
+        btn.innerHTML = loading
+            ? '<i class="fas fa-spinner fa-spin"></i> Connecting...'
+            : '<i class="fab fa-discord"></i> Login with Discord';
+    });
+}
+
+// ==========================================
+// EMAIL AUTH FUNCTIONS
+// ==========================================
+
+// Function to show Success Confirmation UI
+function showAuthSuccess(message) {
+    const modalContent = document.querySelector('.auth-modal-content');
+    if (modalContent) {
+        modalContent.innerHTML = `
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <div class="success-message">
+                <div class="success-icon" style="font-size: 3rem; color: #4ade80; text-align: center; margin-bottom: 1rem;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 style="text-align: center;">Success!</h2>
+                <p style="text-align: center;">${message}</p>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                     <button class="auth-submit-btn" onclick="closeAuthModal()">Great, Thanks!</button>
+                </div>
+            </div>
+        `;
+    }
+}
+
+// Function to handle Email/Password Sign Up
+async function signUpWithEmail(name, ign, bgmi_id, discord, phone, email, password) {
+    const submitBtn = document.querySelector('.auth-submit-btn');
+    if (!submitBtn) return;
+    const originalBtnText = submitBtn.textContent;
+
+    submitBtn.textContent = 'Creating Account...';
+    submitBtn.disabled = true;
+
+    try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+
+        await user.updateProfile({ displayName: name });
+
+        await db.collection('users').doc(user.uid).set({
+            name: name || '',
+            ign: ign || '',
+            bgmi_id: bgmi_id || '',
+            discord: discord || '',
+            phone: phone || '',
+            email: email,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        console.log("Account created and saved to Firestore.");
+        showAuthSuccess("Your account has been created successfully!");
+
+    } catch (error) {
+        console.error("Sign Up Error:", error);
+        let msg = error.message;
+        if (error.code === 'auth/email-already-in-use') msg = "This email is already registered. Please login instead.";
+        if (error.code === 'auth/weak-password') msg = "Password must be at least 6 characters.";
+        if (error.code === 'auth/invalid-email') msg = "Please enter a valid email address.";
+        alert("Sign Up Error: " + msg);
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+    }
+}
+
+// Function to handle Email/Password Login
+async function loginWithEmail(email, password) {
+    const submitBtn = document.querySelector('.auth-submit-btn');
+    if (!submitBtn) return;
+    const originalBtnText = submitBtn.textContent;
+
+    submitBtn.textContent = 'Signing In...';
+    submitBtn.disabled = true;
+
+    try {
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        closeAuthModal();
+        updateUIForUser(userCredential.user);
+    } catch (error) {
+        console.error("Login Error:", error);
+        let msg = error.message;
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+            msg = "Invalid email or password. Please try again.";
+        }
+        if (error.code === 'auth/too-many-requests') {
+            msg = "Too many failed attempts. Please try again later.";
+        }
+        alert("Login Error: " + msg);
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+    }
+}
+
+// Function to Logout
+async function logout() {
+    try {
+        await auth.signOut();
+        updateUIForLoggedOut();
+    } catch (error) {
+        console.error("Error signing out:", error.message);
+    }
+}
+
+// ==========================================
+// UI STATE MANAGEMENT
+// ==========================================
+
+function updateUIForUser(user) {
+    const loginBtns = document.querySelectorAll('.nav-login-btn, .mobile-login-btn');
+    loginBtns.forEach(btn => {
+        btn.textContent = 'Sign Out';
+        btn.onclick = logout;
+    });
+
+    const profileBtns = document.querySelectorAll('.nav-profile-btn, .mobile-profile-btn');
+    profileBtns.forEach(btn => {
+        btn.style.display = 'inline-block';
+    });
+}
+
+function updateUIForLoggedOut() {
+    const loginBtns = document.querySelectorAll('.nav-login-btn, .mobile-login-btn');
+    loginBtns.forEach(btn => {
+        btn.textContent = 'Login / Sign Up';
+        btn.onclick = openAuthModal;
+    });
+
+    const profileBtns = document.querySelectorAll('.nav-profile-btn, .mobile-profile-btn');
+    profileBtns.forEach(btn => {
+        btn.style.display = 'none';
+    });
+}
+
+// ==========================================
+// AUTH MODAL LOGIC
+// ==========================================
+
+function openAuthModal() {
+    const authModal = document.getElementById('authModal');
+    if (authModal) {
+        authModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeAuthModal() {
+    const authModal = document.getElementById('authModal');
+    if (authModal) {
+        authModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modals when clicking outside
+window.onclick = function (event) {
+    const authModal = document.getElementById('authModal');
+    if (authModal && event.target === authModal) {
+        closeAuthModal();
+    }
+    const profileModal = document.getElementById('profileModal');
+    if (profileModal && event.target === profileModal) {
+        closeProfileModal();
+    }
+};
+
+// ==========================================
+// PROFILE MODAL LOGIC
+// ==========================================
+
+async function openProfileModal() {
+    const profileModal = document.getElementById('profileModal');
+    if (profileModal) {
+        profileModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        document.getElementById('profileViewMode').style.display = 'block';
+        document.getElementById('profileEditMode').style.display = 'none';
+
+        await fetchAndDisplayUserData();
+    }
+}
+
+function closeProfileModal() {
+    const profileModal = document.getElementById('profileModal');
+    if (profileModal) {
+        profileModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function toggleProfileEditMode() {
+    const viewMode = document.getElementById('profileViewMode');
+    const editMode = document.getElementById('profileEditMode');
+
+    if (viewMode.style.display === 'none') {
+        viewMode.style.display = 'block';
+        editMode.style.display = 'none';
+    } else {
+        viewMode.style.display = 'none';
+        editMode.style.display = 'block';
+
+        document.getElementById('editProfileName').value = document.getElementById('viewProfileName').innerText;
+        document.getElementById('editProfileIGN').value = document.getElementById('viewProfileIGN').innerText;
+        document.getElementById('editProfileBGMI').value = document.getElementById('viewProfileBGMI').innerText;
+        document.getElementById('editProfileDiscord').value = document.getElementById('viewProfileDiscord').innerText;
+        document.getElementById('editProfilePhone').value = document.getElementById('viewProfilePhone').innerText;
+    }
+}
+
+async function fetchAndDisplayUserData() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    document.getElementById('profileDisplayName').innerText = user.displayName || "Player Profile";
+    document.getElementById('viewProfileEmail').innerText = user.email || "N/A";
+
+    try {
+        const docRef = db.collection('users').doc(user.uid);
+        const docSnap = await docRef.get();
+
+        if (docSnap.exists) {
+            const data = docSnap.data();
+            document.getElementById('viewProfileName').innerText = data.name || "N/A";
+            document.getElementById('viewProfileIGN').innerText = data.ign || "N/A";
+            document.getElementById('viewProfileBGMI').innerText = data.bgmi_id || "N/A";
+            document.getElementById('viewProfileDiscord').innerText = data.discord || "N/A";
+            document.getElementById('viewProfilePhone').innerText = data.phone || "N/A";
+        } else {
+            ['viewProfileName', 'viewProfileIGN', 'viewProfileBGMI', 'viewProfileDiscord', 'viewProfilePhone'].forEach(id => {
+                document.getElementById(id).innerText = "N/A";
+            });
+        }
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+    }
+}
+
+async function saveProfileChanges() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const saveBtn = document.querySelector('.profile-save-btn');
+    const originalText = saveBtn.innerText;
+    saveBtn.innerText = "Saving...";
+    saveBtn.disabled = true;
+
+    try {
+        const newName = document.getElementById('editProfileName').value;
+        const newIgn = document.getElementById('editProfileIGN').value;
+        const newBgmi = document.getElementById('editProfileBGMI').value;
+        const newDiscord = document.getElementById('editProfileDiscord').value;
+        const newPhone = document.getElementById('editProfilePhone').value;
+
+        await db.collection('users').doc(user.uid).update({
+            name: newName,
+            ign: newIgn,
+            bgmi_id: newBgmi,
+            discord: newDiscord,
+            phone: newPhone,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        if (user.displayName !== newName) {
+            await user.updateProfile({ displayName: newName });
+        }
+
+        document.getElementById('viewProfileName').innerText = newName;
+        document.getElementById('viewProfileIGN').innerText = newIgn;
+        document.getElementById('viewProfileBGMI').innerText = newBgmi;
+        document.getElementById('viewProfileDiscord').innerText = newDiscord;
+        document.getElementById('viewProfilePhone').innerText = newPhone;
+        document.getElementById('profileDisplayName').innerText = newName;
+
+        toggleProfileEditMode();
+
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        alert("Failed to update profile. Please try again.");
+    } finally {
+        saveBtn.innerText = originalText;
+        saveBtn.disabled = false;
+    }
+}
+
+// ==========================================
+// AUTH STATE OBSERVER
+// ==========================================
+
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        updateUIForUser(user);
+    } else {
+        updateUIForLoggedOut();
+        // Handle Discord OAuth callback on page load
+        handleDiscordCallback();
+    }
+});
+
+// ==========================================
+// DOM EVENT LISTENERS
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Discord Button click handlers
+    document.querySelectorAll('.discord-login-btn').forEach(btn => {
+        btn.addEventListener('click', loginWithDiscord);
+    });
+
+    // --- Auth Mode Toggle (Login <-> Sign Up) ---
+    // Uses document-level delegation so it always works regardless of DOM state
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('#toggleAuthMode');
+        if (!link) return;
+        e.preventDefault();
+
+        const currentMode = link.getAttribute('data-current-mode') || 'login';
+
+        const authTitle = document.querySelector('.auth-modal-content h2');
+        const submitBtn = document.querySelector('.auth-submit-btn');
+        const signupFields = document.querySelector('.signup-fields');
+        const authFooterText = document.querySelector('.auth-footer');
+
+        if (currentMode === 'login') {
+            // → Switch to Sign Up
+            if (authTitle) authTitle.textContent = 'Create Account';
+            if (submitBtn) submitBtn.textContent = 'Sign Up';
+            if (signupFields) signupFields.style.display = 'block';
+            if (authFooterText) authFooterText.firstChild.textContent = 'Already have an account? ';
+            // Update the link itself in-place (no innerHTML swap)
+            link.textContent = 'Login';
+            link.setAttribute('data-current-mode', 'signup');
+            document.querySelectorAll('.auth-form').forEach(f => f.setAttribute('data-mode', 'signup'));
+
+        } else {
+            // → Switch to Login
+            if (authTitle) authTitle.textContent = 'Welcome Back';
+            if (submitBtn) submitBtn.textContent = 'Login';
+            if (signupFields) signupFields.style.display = 'none';
+            if (authFooterText) authFooterText.firstChild.textContent = "Don't have an account? ";
+            link.textContent = 'Sign up';
+            link.setAttribute('data-current-mode', 'login');
+            document.querySelectorAll('.auth-form').forEach(f => f.setAttribute('data-mode', 'login'));
+        }
+    });
+
+    // --- Form Submit Handler ---
+    document.querySelectorAll('.auth-form').forEach(form => {
+        form.setAttribute('data-mode', 'login');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const mode = form.getAttribute('data-mode');
+            const emailInput = form.querySelector('input[type="email"]');
+            const passwordInput = form.querySelector('input[type="password"]');
+
+            if (!emailInput || !passwordInput) {
+                alert("Form error: email or password field not found.");
+                return;
+            }
+
+            if (mode === 'signup') {
+                const name = (form.querySelector('#name') || { value: '' }).value.trim();
+                const ign = (form.querySelector('#ign') || { value: '' }).value.trim();
+                const bgmi_id = (form.querySelector('#bgmi_id') || { value: '' }).value.trim();
+                const discord = (form.querySelector('#discord') || { value: '' }).value.trim();
+                const phone = (form.querySelector('#phone') || { value: '' }).value.trim();
+
+                if (!name || !ign || !bgmi_id) {
+                    alert("Please fill in all required fields: Full Name, In-Game Name, and BGMI Character ID.");
+                    return;
+                }
+
+                signUpWithEmail(name, ign, bgmi_id, discord, phone, emailInput.value, passwordInput.value);
+            } else {
+                loginWithEmail(emailInput.value, passwordInput.value);
+            }
+        });
+    });
+});
+
+
