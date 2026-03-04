@@ -21,6 +21,8 @@ if (typeof firebase === 'undefined') {
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+console.log("Firebase initialized:", { auth: !!auth, db: !!db });
+
 // ==========================================
 // DISCORD OAUTH2 CONFIGURATION
 // ==========================================
@@ -31,7 +33,9 @@ const db = firebase.firestore();
 //    and https://mmesports.in/index.html (for production)
 // 4. Copy your Client ID and paste it below
 const DISCORD_CLIENT_ID = '1477227771334889574';
-const DISCORD_REDIRECT_URI = window.location.origin + '/index.html';
+const DISCORD_REDIRECT_URI = window.location.origin.includes('localhost')
+    ? 'http://localhost:3000/index.html'
+    : 'https://mmesports.in/index.html';
 const DISCORD_SCOPES = 'identify email';
 
 // Initiate Discord OAuth2 Login (Implicit Flow - no backend needed)
@@ -177,8 +181,10 @@ async function signUpWithEmail(name, ign, bgmi_id, discord, phone, email, passwo
     submitBtn.textContent = 'Creating Account...';
     submitBtn.disabled = true;
 
+    console.log("Starting sign up for:", email);
     try {
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        console.log("Firebase Auth User created:", userCredential.user.uid);
         const user = userCredential.user;
 
         await user.updateProfile({ displayName: name });
@@ -217,8 +223,10 @@ async function loginWithEmail(email, password) {
     submitBtn.textContent = 'Signing In...';
     submitBtn.disabled = true;
 
+    console.log("Starting login for:", email);
     try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        console.log("Login successful for:", userCredential.user.email);
         closeAuthModal();
         updateUIForUser(userCredential.user);
     } catch (error) {
@@ -468,7 +476,10 @@ function switchAuthMode(e) {
         if (signupFields) signupFields.style.display = 'block';
         link.textContent = 'Login here';
         link.setAttribute('data-current-mode', 'signup');
-        if (authForm) authForm.setAttribute('data-mode', 'signup');
+        if (authForm) {
+            authForm.setAttribute('data-mode', 'signup');
+            console.log("Switched to SIGNUP mode");
+        }
     } else {
         if (authTitle) authTitle.textContent = 'Welcome Back';
         if (authSub) authSub.textContent = 'Sign in to MM Esports';
@@ -476,7 +487,10 @@ function switchAuthMode(e) {
         if (signupFields) signupFields.style.display = 'none';
         link.textContent = 'Sign up';
         link.setAttribute('data-current-mode', 'login');
-        if (authForm) authForm.setAttribute('data-mode', 'login');
+        if (authForm) {
+            authForm.setAttribute('data-mode', 'login');
+            console.log("Switched to LOGIN mode");
+        }
     }
 }
 
@@ -502,7 +516,10 @@ document.addEventListener('DOMContentLoaded', function () {
             var emailInput = form.querySelector('input[type="email"]');
             var passwordInput = form.querySelector('input[type="password"]');
 
+            console.log("Form submit triggered. Mode:", mode, "Email:", emailInput ? emailInput.value : 'MISSING');
+
             if (!emailInput || !passwordInput) {
+                console.error("Form error: email or password field not found.");
                 alert('Form error: email or password field not found.');
                 return;
             }
@@ -514,6 +531,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 var discord = (form.querySelector('#discord') || { value: '' }).value.trim();
                 var phone = (form.querySelector('#phone') || { value: '' }).value.trim();
 
+                console.log("Sign-up attempt with:", { name, ign, bgmi_id, email: emailInput.value });
+
                 if (!name || !ign || !bgmi_id) {
                     alert('Please fill in all required fields: Full Name, In-Game Name, and BGMI Character ID.');
                     return;
@@ -521,6 +540,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 signUpWithEmail(name, ign, bgmi_id, discord, phone, emailInput.value, passwordInput.value);
             } else {
+                console.log("Login attempt for:", emailInput.value);
                 loginWithEmail(emailInput.value, passwordInput.value);
             }
         });
