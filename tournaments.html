@@ -30,6 +30,8 @@
             <a href="past-tournaments.html">Past Tournaments</a>
             <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
             <a href="about.html">About</a>
+            <button class="nav-profile-btn" onclick="openProfileModal()" style="display: none;"><i
+                    class="fas fa-user-circle"></i> Profile</button>
             <button class="nav-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
         </div>
         <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu">
@@ -47,6 +49,8 @@
         <a href="past-tournaments.html">Past Tournaments</a>
         <a href="https://discord.gg/6aSSJKgqym" target="_blank">Discord</a>
         <a href="about.html">About</a>
+        <button class="mobile-profile-btn" onclick="openProfileModal()" style="display: none;"><i
+                class="fas fa-user-circle"></i> Profile</button>
         <button class="mobile-login-btn" onclick="openAuthModal()">Login / Sign Up</button>
     </div>
 
@@ -485,12 +489,87 @@
                 <button type="submit" class="auth-submit-btn">Login</button>
             </form>
 
-            <p class="auth-footer">Don't have an account? <a href="#" id="toggleAuthMode">Sign up</a></p>
+            <p class="auth-footer">Don't have an account? <a href="#" id="toggleAuthMode" data-current-mode="login">Sign
+                    up</a></p>
         </div>
     </div>
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-auth.js"></script>
+    <!-- PROFILE MODAL -->
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-modal-content">
+            <span class="close-modal" onclick="closeProfileModal()">&times;</span>
+            <div class="profile-header">
+                <i class="fas fa-user-circle profile-avatar"></i>
+                <h2 id="profileDisplayName">Player Profile</h2>
+            </div>
+
+            <div id="profileViewMode">
+                <div class="profile-info-grid">
+                    <div class="profile-field">
+                        <label>Full Name</label>
+                        <p id="viewProfileName">Loading...</p>
+                    </div>
+                    <div class="profile-field">
+                        <label>In-Game Name (IGN)</label>
+                        <p id="viewProfileIGN">Loading...</p>
+                    </div>
+                    <div class="profile-field">
+                        <label>BGMI ID</label>
+                        <p id="viewProfileBGMI">Loading...</p>
+                    </div>
+                    <div class="profile-field">
+                        <label>Discord</label>
+                        <p id="viewProfileDiscord">Loading...</p>
+                    </div>
+                    <div class="profile-field">
+                        <label>Phone</label>
+                        <p id="viewProfilePhone">Loading...</p>
+                    </div>
+                    <div class="profile-field">
+                        <label>Email</label>
+                        <p id="viewProfileEmail">Loading...</p>
+                    </div>
+                </div>
+                <button class="profile-edit-btn" onclick="toggleProfileEditMode()">Edit Profile</button>
+            </div>
+
+            <form id="profileEditMode" style="display: none;" onsubmit="event.preventDefault(); saveProfileChanges();">
+                <div class="form-group">
+                    <label for="editProfileName">Full Name</label>
+                    <input type="text" id="editProfileName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProfileIGN">In-Game Name (IGN)</label>
+                    <input type="text" id="editProfileIGN" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProfileBGMI">BGMI Character ID</label>
+                    <input type="text" id="editProfileBGMI" required>
+                </div>
+                <div class="form-group">
+                    <label for="editProfileDiscord">Discord Username</label>
+                    <input type="text" id="editProfileDiscord">
+                </div>
+                <div class="form-group">
+                    <label for="editProfilePhone">Phone / WhatsApp Number</label>
+                    <input type="tel" id="editProfilePhone">
+                </div>
+                <div class="profile-action-btns">
+                    <button type="button" class="profile-cancel-btn" onclick="toggleProfileEditMode()">Cancel</button>
+                    <button type="submit" class="profile-save-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+    <!-- Firebase Authentication -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+
+    <!-- Our Auth Logic -->
+    <script src="firebase-auth.js"></script>
 </body>
 
 </html>
