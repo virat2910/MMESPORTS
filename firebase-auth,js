@@ -439,78 +439,77 @@ auth.onAuthStateChanged((user) => {
 });
 
 // ==========================================
+// AUTH MODE TOGGLE — global, called via onclick in HTML
+// ==========================================
+
+function switchAuthMode(e) {
+    if (e) e.preventDefault();
+
+    var link = document.getElementById('toggleAuthMode');
+    if (!link) return;
+
+    var currentMode = link.getAttribute('data-current-mode') || 'login';
+    var authTitle = document.querySelector('.auth-modal-content h2');
+    var submitBtn = document.querySelector('.auth-submit-btn');
+    var signupFields = document.querySelector('.signup-fields');
+
+    if (currentMode === 'login') {
+        if (authTitle) authTitle.textContent = 'Create Account';
+        if (submitBtn) submitBtn.textContent = 'Sign Up';
+        if (signupFields) signupFields.style.display = 'block';
+        link.textContent = 'Login here';
+        link.setAttribute('data-current-mode', 'signup');
+        document.querySelectorAll('.auth-form').forEach(function (f) {
+            f.setAttribute('data-mode', 'signup');
+        });
+    } else {
+        if (authTitle) authTitle.textContent = 'Welcome Back';
+        if (submitBtn) submitBtn.textContent = 'Login';
+        if (signupFields) signupFields.style.display = 'none';
+        link.textContent = 'Sign up';
+        link.setAttribute('data-current-mode', 'login');
+        document.querySelectorAll('.auth-form').forEach(function (f) {
+            f.setAttribute('data-mode', 'login');
+        });
+    }
+}
+
+// ==========================================
 // DOM EVENT LISTENERS
 // ==========================================
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
 
     // Discord Button click handlers
-    document.querySelectorAll('.discord-login-btn').forEach(btn => {
+    document.querySelectorAll('.discord-login-btn').forEach(function (btn) {
         btn.addEventListener('click', loginWithDiscord);
     });
 
-    // --- Auth Mode Toggle (Login <-> Sign Up) ---
-    // Uses document-level delegation so it always works regardless of DOM state
-    document.addEventListener('click', (e) => {
-        const link = e.target.closest('#toggleAuthMode');
-        if (!link) return;
-        e.preventDefault();
-
-        const currentMode = link.getAttribute('data-current-mode') || 'login';
-
-        const authTitle = document.querySelector('.auth-modal-content h2');
-        const submitBtn = document.querySelector('.auth-submit-btn');
-        const signupFields = document.querySelector('.signup-fields');
-        const authFooterText = document.querySelector('.auth-footer');
-
-        if (currentMode === 'login') {
-            // → Switch to Sign Up
-            if (authTitle) authTitle.textContent = 'Create Account';
-            if (submitBtn) submitBtn.textContent = 'Sign Up';
-            if (signupFields) signupFields.style.display = 'block';
-            if (authFooterText) authFooterText.firstChild.textContent = 'Already have an account? ';
-            // Update the link itself in-place (no innerHTML swap)
-            link.textContent = 'Login';
-            link.setAttribute('data-current-mode', 'signup');
-            document.querySelectorAll('.auth-form').forEach(f => f.setAttribute('data-mode', 'signup'));
-
-        } else {
-            // → Switch to Login
-            if (authTitle) authTitle.textContent = 'Welcome Back';
-            if (submitBtn) submitBtn.textContent = 'Login';
-            if (signupFields) signupFields.style.display = 'none';
-            if (authFooterText) authFooterText.firstChild.textContent = "Don't have an account? ";
-            link.textContent = 'Sign up';
-            link.setAttribute('data-current-mode', 'login');
-            document.querySelectorAll('.auth-form').forEach(f => f.setAttribute('data-mode', 'login'));
-        }
-    });
-
-    // --- Form Submit Handler ---
-    document.querySelectorAll('.auth-form').forEach(form => {
+    // Form Submit Handler
+    document.querySelectorAll('.auth-form').forEach(function (form) {
         form.setAttribute('data-mode', 'login');
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const mode = form.getAttribute('data-mode');
-            const emailInput = form.querySelector('input[type="email"]');
-            const passwordInput = form.querySelector('input[type="password"]');
+            var mode = form.getAttribute('data-mode');
+            var emailInput = form.querySelector('input[type="email"]');
+            var passwordInput = form.querySelector('input[type="password"]');
 
             if (!emailInput || !passwordInput) {
-                alert("Form error: email or password field not found.");
+                alert('Form error: email or password field not found.');
                 return;
             }
 
             if (mode === 'signup') {
-                const name = (form.querySelector('#name') || { value: '' }).value.trim();
-                const ign = (form.querySelector('#ign') || { value: '' }).value.trim();
-                const bgmi_id = (form.querySelector('#bgmi_id') || { value: '' }).value.trim();
-                const discord = (form.querySelector('#discord') || { value: '' }).value.trim();
-                const phone = (form.querySelector('#phone') || { value: '' }).value.trim();
+                var name = (form.querySelector('#name') || { value: '' }).value.trim();
+                var ign = (form.querySelector('#ign') || { value: '' }).value.trim();
+                var bgmi_id = (form.querySelector('#bgmi_id') || { value: '' }).value.trim();
+                var discord = (form.querySelector('#discord') || { value: '' }).value.trim();
+                var phone = (form.querySelector('#phone') || { value: '' }).value.trim();
 
                 if (!name || !ign || !bgmi_id) {
-                    alert("Please fill in all required fields: Full Name, In-Game Name, and BGMI Character ID.");
+                    alert('Please fill in all required fields: Full Name, In-Game Name, and BGMI Character ID.');
                     return;
                 }
 
@@ -521,5 +520,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
 
