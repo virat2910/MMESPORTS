@@ -290,7 +290,7 @@ function updateUIForLoggedOut() {
 // AUTH MODAL LOGIC
 // ==========================================
 
-function openAuthModal() {
+function openAuthModal(forced = false) {
     console.log("Opening Auth Modal...");
     const authModal = document.getElementById('authModal');
     if (authModal) {
@@ -301,15 +301,32 @@ function openAuthModal() {
             switchAuthMode();
         }
 
+        // Handle forced mode (cannot be closed)
+        const closeBtn = authModal.querySelector('.close-modal');
+        if (forced) {
+            authModal.classList.add('forced');
+            if (closeBtn) closeBtn.style.display = 'none';
+        } else {
+            authModal.classList.remove('forced');
+            if (closeBtn) closeBtn.style.display = 'block';
+        }
+
         authModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 }
 
 function closeAuthModal() {
+    // Prevent closing if forced (logged out)
+    if (!auth.currentUser && document.getElementById('authModal').classList.contains('forced')) {
+        console.log("Cannot close modal: Login required.");
+        return;
+    }
+
     const authModal = document.getElementById('authModal');
     if (authModal) {
         authModal.classList.remove('active');
+        authModal.classList.remove('forced');
         document.body.style.overflow = '';
     }
 }
@@ -317,7 +334,9 @@ function closeAuthModal() {
 // Close modals when clicking outside
 window.onclick = function (event) {
     const authModal = document.getElementById('authModal');
+    // Forbid clicking outside if forced
     if (authModal && event.target === authModal) {
+        if (authModal.classList.contains('forced')) return;
         closeAuthModal();
     }
     const profileModal = document.getElementById('profileModal');
@@ -452,9 +471,14 @@ async function saveProfileChanges() {
 auth.onAuthStateChanged((user) => {
     console.log("Auth State Changed. User:", user ? user.email : "Logged Out");
     if (user) {
+        document.body.classList.remove('auth-gate-active');
         updateUIForUser(user);
+        closeAuthModal();
     } else {
+        document.body.classList.add('auth-gate-active');
         updateUIForLoggedOut();
+        // Force the modal open if logged out
+        openAuthModal(true);
         // Handle Discord OAuth callback on page load
         handleDiscordCallback();
     }
