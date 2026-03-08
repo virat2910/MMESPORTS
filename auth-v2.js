@@ -35,7 +35,7 @@ console.log("Firebase initialized:", { auth: !!auth, db: !!db });
 const DISCORD_CLIENT_ID = '1477227771334889574';
 const DISCORD_REDIRECT_URI = window.location.origin.includes('localhost')
     ? 'http://localhost:3000/index.html'
-    : 'https://mmesports.in/index.html';
+    : 'https://www.mmesports.in/';
 const DISCORD_SCOPES = 'identify email';
 
 // Initiate Discord OAuth2 Login (Implicit Flow - no backend needed)
