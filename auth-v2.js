@@ -15,6 +15,16 @@ if (typeof firebase === 'undefined') {
 } else {
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
+        try {
+            const appCheck = firebase.appCheck();
+            appCheck.activate(
+                new firebase.appCheck.ReCaptchaV3Provider('6LeYqY4sAAAAALowMt0hFKVqMBm69B8ej6DRNe8D'),
+                true // isTokenAutoRefreshEnabled
+            );
+            console.log("Firebase App Check initialized.");
+        } catch (err) {
+            console.error("App Check error:", err);
+        }
     }
 }
 
@@ -35,7 +45,7 @@ console.log("Firebase initialized:", { auth: !!auth, db: !!db });
 const DISCORD_CLIENT_ID = '1477227771334889574';
 const DISCORD_REDIRECT_URI = window.location.origin.includes('localhost')
     ? 'http://localhost:3000/index.html'
-    : 'https://www.mmesports.in/';
+    : 'https://mmesports.in/index.html';
 const DISCORD_SCOPES = 'identify email';
 
 // Initiate Discord OAuth2 Login (Implicit Flow - no backend needed)
