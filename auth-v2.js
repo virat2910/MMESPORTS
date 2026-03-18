@@ -281,6 +281,9 @@ function updateUIForUser(user) {
     profileBtns.forEach(btn => {
         btn.style.display = 'inline-block';
     });
+    
+    // Notifications initialized
+    if (typeof initNotifications === 'function') initNotifications(user.uid);
 }
 
 function updateUIForLoggedOut() {
@@ -294,6 +297,9 @@ function updateUIForLoggedOut() {
     profileBtns.forEach(btn => {
         btn.style.display = 'none';
     });
+    
+    // Clear notifications
+    if (typeof clearNotifications === 'function') clearNotifications();
 }
 
 // ==========================================
@@ -591,4 +597,83 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// ==========================================
+// NOTIFICATIONS SYSTEM
+// ==========================================
+let notifUnsubscribe = null;
+
+window.toggleNotifications = function() {
+    const menu = document.getElementById('notifMenu');
+    if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+};
+
+window.initNotifications = function(uid) {
+    const bellContainers = document.querySelectorAll('.notification-dropdown');
+    bellContainers.forEach(el => el.style.display = 'inline-block');
+
+    notifUnsubscribe = db.collection('notifications')
+        .where('userId', '==', uid)
+        .orderBy('createdAt', 'desc')
+        .limit(20)
+        .onSnapshot((snapshot) => {
+            const list = document.getElementById('notifList');
+            const badge = document.getElementById('notifBadge');
+            
+            if (!list || !badge) return;
+            
+            let unreadCount = 0;
+            list.innerHTML = '';
+            
+            if (snapshot.empty) {
+                list.innerHTML = '<p style="text-align: center; color: #94a3b8; font-size: 0.9rem; margin:0;">No new notifications</p>';
+                badge.style.display = 'none';
+                return;
+            }
+
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                if (!data.isRead) unreadCount++;
+                
+                const timeStr = data.createdAt ? new Date(data.createdAt.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : 'Just now';
+                const colorMap = { success: '#4ade80', danger: '#ef4444', warning: '#f59e0b', info: '#3b82f6' };
+                const color = colorMap[data.type] || '#4ade80';
+                
+                const bgStyle = data.isRead ? 'background: #0f172a;' : 'background: #1e293b; border-left: 3px solid ' + color + ';';
+
+                const notifHTML = `
+                    <div style="padding: 10px; border-bottom: 1px solid #334155; cursor: pointer; ${bgStyle}" onclick="markNotifRead('${doc.id}', ${data.isRead})">
+                        <strong style="color: ${color}; display: block; font-size: 0.95rem;">${data.title}</strong>
+                        <p style="margin: 5px 0 0; font-size: 0.85rem; color: #cbd5e1;">${data.message}</p>
+                        <span style="font-size: 0.7rem; color: #64748b; margin-top: 5px; display: block;">${timeStr}</span>
+                    </div>
+                `;
+                list.innerHTML += notifHTML;
+            });
+            
+            if (unreadCount > 0) {
+                badge.innerText = unreadCount > 9 ? '9+' : unreadCount;
+                badge.style.display = 'block';
+            } else {
+                badge.style.display = 'none';
+            }
+        });
+};
+
+window.clearNotifications = function() {
+    if (notifUnsubscribe) notifUnsubscribe();
+    const bellContainers = document.querySelectorAll('.notification-dropdown');
+    bellContainers.forEach(el => el.style.display = 'none');
+    const badge = document.getElementById('notifBadge');
+    if (badge) badge.style.display = 'none';
+};
+
+window.markNotifRead = async function(notifId, isAlreadyRead) {
+    if (isAlreadyRead) return;
+    try {
+        await db.collection('notifications').doc(notifId).update({ isRead: true });
+    } catch (err) {
+        console.error("Error marking notif as read", err);
+    }
+};
 
