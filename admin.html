@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - MM Esports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #0f172a; color: white; display: flex; height: 100vh; overflow: hidden; }
+
+        /* Loader */
+        #adminLoader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f172a; display: flex; align-items: center;
+            justify-content: center; z-index: 9999; flex-direction: column;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px; background: #1e293b; padding: 2rem 1rem;
+            border-right: 1px solid #334155;
+        }
+        .sidebar h2 { color: #4ade80; margin-bottom: 2rem; text-align: center; }
+        .sidebar button {
+            width: 100%; background: transparent; color: #cbd5e1; border: none;
+            padding: 1rem; text-align: left; cursor: pointer; border-radius: 8px;
+            font-size: 1rem; transition: 0.2s; margin-bottom: 0.5rem;
+        }
+        .sidebar button:hover, .sidebar button.active {
+            background: #334155; color: white;
+        }
+        .sidebar .back-btn {
+            background: #ef4444; color: white; text-align: center; margin-top: auto;
+            position: absolute; bottom: 2rem; width: 218px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1; padding: 2rem; overflow-y: auto;
+        }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+        
+        .card {
+            background: #1e293b; border-radius: 12px; padding: 2rem;
+            border: 1px solid #334155; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; text-align: left; }
+        th, td { padding: 1rem; border-bottom: 1px solid #334155; }
+        th { color: #94a3b8; font-weight: 500; }
+        tr:hover { background: #334155; }
+
+        /* Forms */
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; color: #94a3b8; }
+        input, textarea, select {
+            width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #334155;
+            background: #0f172a; color: white;
+        }
+        .btn-primary {
+            background: #4ade80; color: #020617; border: none; padding: 0.8rem 1.5rem;
+            border-radius: 8px; font-weight: bold; cursor: pointer;
+        }
+
+        /* Tab sections */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+
+<body>
+
+    <div id="adminLoader">
+        <i class="fas fa-shield-alt" style="font-size: 4rem; color: #4ade80; margin-bottom: 1rem;"></i>
+        <h2>Verifying Admin Access...</h2>
+    </div>
+
+    <div class="sidebar">
+        <h2>MM ADMIN</h2>
+        <button class="nav-btn active" onclick="switchTab('users')"><i class="fas fa-users"></i> Manage Players</button>
+        <button class="nav-btn" onclick="switchTab('notify')"><i class="fas fa-bell"></i> Send Notifications</button>
+        <button class="nav-btn" onclick="switchTab('scrims')"><i class="fas fa-gamepad"></i> Manage Scrims</button>
+        
+        <button class="back-btn" onclick="window.location.href='index.html'"><i class="fas fa-arrow-left"></i> Exit Dashboard</button>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1 id="tabTitle">Manage Players</h1>
+            <div>
+                <span id="adminName" style="color: #94a3b8; margin-right: 1rem;">Admin</span>
+                <i class="fas fa-user-shield" style="color: #4ade80; font-size: 1.5rem;"></i>
+            </div>
+        </div>
+
+        <!-- USERS TAB -->
+        <div id="users" class="tab-content active card">
+            <h3>Registered Players Summary</h3>
+            <p style="color: #94a3b8; margin-bottom: 1rem;">Total Users: <span id="totalUsersCount">0</span></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>IGN</th>
+                        <th>Name</th>
+                        <th>BGMI ID</th>
+                        <th>Discord</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <tr><td colspan="5" style="text-align: center;">Loading users...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NOTIFICATIONS TAB -->
+        <div id="notify" class="tab-content card">
+            <h3>Broadcast Global Notification</h3>
+            <p style="color: #94a3b8; margin-bottom: 1.5rem;">Send a system-wide alert to all authenticated users.</p>
+            
+            <form onsubmit="event.preventDefault(); sendGlobalNotification();">
+                <div class="form-group">
+                    <label>Notification Title</label>
+                    <input type="text" id="notifTitle" required placeholder="e.g. Scrim Registration Open!">
+                </div>
+                <div class="form-group">
+                    <label>Notification Message</label>
+                    <textarea id="notifBody" rows="4" required placeholder="Type the main message here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Priority Color</label>
+                    <select id="notifType">
+                        <option value="success">Green (Success/Open)</option>
+                        <option value="warning">Yellow (Warning/Alert)</option>
+                        <option value="danger">Red (Urgent/Closed)</option>
+                        <option value="info">Blue (Information)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" id="sendBtn"><i class="fas fa-paper-plane"></i> Send Notification</button>
+            </form>
+        </div>
+
+        <!-- SCRIMS TAB -->
+        <div id="scrims" class="tab-content card">
+            <h3>Upcoming Scrims Management</h3>
+            <p style="color: #94a3b8;">Feature coming soon! Manage live registrations and clear slots here.</p>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-check-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
+
+    <!-- Our Auth Logic -->
+    <script src="auth-v2.js"></script>
+
+    <script>
+        // Admin Security Check
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                try {
+                    const docSnap = await db.collection('users').doc(user.uid).get();
+                    if (docSnap.exists && docSnap.data().isAdmin === true) {
+                        // Access granted
+                        document.getElementById('adminLoader').style.display = 'none';
+                        document.getElementById('adminName').innerText = user.displayName || "Admin";
+                        loadUsers();
+                    } else {
+                        // Access denied
+                        alert("Unauthorized access! You do not have admin privileges.");
+                        window.location.href = 'index.html';
+                    }
+                } catch (err) {
+                    alert("Error verifying permissions.");
+                    window.location.href = 'index.html';
+                }
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        // UI Tabs
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            const titles = {
+                'users': 'Manage Players',
+                'notify': 'Send Notifications',
+                'scrims': 'Manage Scrims'
+            };
+            document.getElementById('tabTitle').innerText = titles[tabId];
+        }
+
+        // Fetch Users Data
+        async function loadUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            try {
+                const snapshot = await db.collection('users').orderBy('createdAt', 'desc').get();
+                document.getElementById('totalUsersCount').innerText = snapshot.size;
+                tbody.innerHTML = '';
+                
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-weight: bold; color: #4ade80;">${data.ign || 'N/A'}</td>
+                        <td>${data.name || 'N/A'}</td>
+                        <td>${data.bgmi_id || 'N/A'}</td>
+                        <td>${data.discord || 'N/A'}</td>
+                        <td><button style="background: transparent; color: #ef4444; border: none; cursor: pointer;"><i class="fas fa-ban"></i> Ban</button></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                console.error("Error loading users:", err);
+                tbody.innerHTML = '<tr><td colspan="5" style="color: #ef4444;">Failed to load users. Please check Firestore security rules for admin access.</td></tr>';
+            }
+        }
+
+        // Send Global Notification
+        async function sendGlobalNotification() {
+            if(!confirm("Are you sure you want to send this to ALL registered users?")) return;
+            
+            const btn = document.getElementById('sendBtn');
+            const ogText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            const title = document.getElementById('notifTitle').value;
+            const message = document.getElementById('notifBody').value;
+            const type = document.getElementById('notifType').value;
+
+            try {
+                // To broadcast globally, we iterate over all users and create a notification doc for each
+                // A more optimized way for scale would be an 'announcements' collection, but for this scale we'll send individually
+                const usersSnap = await db.collection('users').get();
+                
+                const batch = db.batch();
+                let count = 0;
+                
+                usersSnap.docs.forEach(userDoc => {
+                    const newNotifRef = db.collection('notifications').doc();
+                    batch.set(newNotifRef, {
+                        userId: userDoc.id,
+                        title: title,
+                        message: message,
+                        type: type,
+                        isRead: false,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    count++;
+                });
+
+                // Commit batch
+                if (count > 0) {
+                    await batch.commit();
+                    alert(`Successfully sent notification to ${count} players!`);
+                } else {
+                    alert("No registered users to notify.");
+                }
+                
+                document.getElementById('notifTitle').value = '';
+                document.getElementById('notifBody').value = '';
+            } catch (err) {
+                console.error("Error broadcasting notification:", err);
+                alert("Failed to send: " + err.message);
+            } finally {
+                btn.innerHTML = ogText;
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>
